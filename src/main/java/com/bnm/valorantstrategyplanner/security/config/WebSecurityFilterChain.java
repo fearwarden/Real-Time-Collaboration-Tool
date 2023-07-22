@@ -1,4 +1,4 @@
-package com.bnm.valorantstrategyplanner.security;
+package com.bnm.valorantstrategyplanner.security.config;
 
 import lombok.Data;
 import org.springframework.context.annotation.Bean;
