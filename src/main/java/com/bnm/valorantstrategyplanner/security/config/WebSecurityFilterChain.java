@@ -29,7 +29,6 @@ public class WebSecurityFilterChain {
                     manager
                             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
-
         return http.build();
     }
 }
