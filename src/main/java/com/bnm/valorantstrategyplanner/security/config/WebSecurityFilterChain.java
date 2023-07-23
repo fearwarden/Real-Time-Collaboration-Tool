@@ -22,7 +22,7 @@ public class WebSecurityFilterChain {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
                         request
-                                .requestMatchers("/api/v1/auth/**")
+                                .requestMatchers("/api/v1/auth/**", "/ws/**", "/live/**")
                                 .permitAll().anyRequest().authenticated()
                 )
                 .sessionManagement(manager ->

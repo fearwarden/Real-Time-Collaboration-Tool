@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 @Controller
 public class WsController {
     @MessageMapping("/mouse-position")
-    @SendTo("/topic/strategies")
+    @SendTo("/topic/strategies/mouse-position")
     public MousePosition registerMousePosition(@Validated MousePosition mousePosition) {
         System.out.println(mousePosition);
         return mousePosition;
