@@ -1,14 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import SockJS from "sockjs-client";
-import { Stomp } from "@stomp/stompjs";
+import { CompatClient, Stomp } from "@stomp/stompjs";
 import { v4 as generateUUID} from "uuid";
+import React from "react";
 
 function App() {
   
-  const [stompClient, setStompClient] = useState(null);
+  const [stompClient, setStompClient] = useState<CompatClient | null>(null);
   const [uuid, setUuid] = useState(generateUUID());
 
-  const canvas = useRef();
+  const canvas = useRef<HTMLCanvasElement | null>(null);
 
   // Set the initial position of the dot
   let x = 250;
@@ -23,7 +24,7 @@ function App() {
     let sc = Stomp.over(socket);
     sc.debug = () => {};
 
-    sc.connect({}, function (frame) {
+    sc.connect({}, function (frame: any) {
         //console.log('Connected: ' + frame);
         sc.subscribe('/topic/strategies', function (message) {
           const data = JSON.parse(message.body)
@@ -49,12 +50,15 @@ function App() {
       console.log("Disconnected");
   }
 
-  function send(endpoint, message) {
-      stompClient.send(endpoint, {}, JSON.stringify(message));
+  function send(endpoint: string, message: object) {
+    if(stompClient == null) return;   
+    stompClient.send(endpoint, {}, JSON.stringify(message));
   }
 
   function drawDot() {
+    if(canvas.current == undefined) return;
     const ctx = canvas.current.getContext('2d');
+    if(ctx == null) return;
     ctx.clearRect(0, 0, 500, 500);
     ctx.beginPath();
     ctx.arc(x, y, 10, 0, 2 * Math.PI);
