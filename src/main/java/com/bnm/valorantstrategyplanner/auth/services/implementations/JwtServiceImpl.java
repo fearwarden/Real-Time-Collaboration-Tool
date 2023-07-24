@@ -1,6 +1,10 @@
 package com.bnm.valorantstrategyplanner.auth.services.implementations;
 
 import com.bnm.valorantstrategyplanner.auth.services.JwtService;
+import com.bnm.valorantstrategyplanner.users.dto.response.UserDto;
+import com.bnm.valorantstrategyplanner.users.exceptions.throwables.UserNotFoundException;
+import com.bnm.valorantstrategyplanner.users.models.User;
+import com.bnm.valorantstrategyplanner.users.repositories.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,12 +19,14 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
 public class JwtServiceImpl implements JwtService {
 
+    private final UserRepository userRepository;
     @Value("${jwt.secret.key}")
     private String JWT_SECRET_KEY;
 
@@ -41,6 +47,15 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        Optional<User> userOptional = this.userRepository.findByEmail(userDetails.getUsername());
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            extraClaims.put("id", user.getId());
+            extraClaims.put("email", user.getEmail());
+            extraClaims.put("role", user.getRole());
+        }
+
         return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
