@@ -31,10 +31,10 @@ export default class StompClient {
         }
         this.stompClient.connect({}, (frame: any) => {
             for(let key of subMap.keys()) {
-                this.stompClient!.subscribe(key, function (message: any) {
+                this.stompClient!.subscribe(key, (message: any) => {
                     for(let callback of subMap.get(key)!) {
                         callback(message);
-                    }    
+                    }
                 });
             }
         });
