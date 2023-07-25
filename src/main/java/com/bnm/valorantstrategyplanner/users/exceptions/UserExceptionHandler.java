@@ -1,5 +1,7 @@
 package com.bnm.valorantstrategyplanner.users.exceptions;
 
+import com.bnm.valorantstrategyplanner.users.exceptions.throwables.PasswordDidNotMatchException;
+import com.bnm.valorantstrategyplanner.users.exceptions.throwables.UserExistException;
 import com.bnm.valorantstrategyplanner.users.exceptions.throwables.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,5 +17,17 @@ public class UserExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<String> userNotFoundHandler(UserNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(UserExistException.class)
+    public ResponseEntity<String> userExistHandler(UserExistException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(PasswordDidNotMatchException.class)
+    public ResponseEntity<String> userExistHandler(PasswordDidNotMatchException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 }
