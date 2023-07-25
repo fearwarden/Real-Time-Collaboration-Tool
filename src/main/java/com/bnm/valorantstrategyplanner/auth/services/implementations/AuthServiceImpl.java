@@ -1,14 +1,18 @@
 package com.bnm.valorantstrategyplanner.auth.services.implementations;
 
+import com.bnm.valorantstrategyplanner.auth.dto.response.JwtAuthenticationResponse;
 import com.bnm.valorantstrategyplanner.auth.services.AuthService;
 import com.bnm.valorantstrategyplanner.auth.services.JwtService;
 import com.bnm.valorantstrategyplanner.users.exceptions.throwables.PasswordDidNotMatchException;
 import com.bnm.valorantstrategyplanner.users.exceptions.throwables.UserExistException;
+import com.bnm.valorantstrategyplanner.users.exceptions.throwables.UserNotFoundException;
 import com.bnm.valorantstrategyplanner.users.models.User;
 import com.bnm.valorantstrategyplanner.users.repositories.UserRepository;
 import com.bnm.valorantstrategyplanner.utils.PasswordManagerImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -38,5 +42,27 @@ public class AuthServiceImpl implements AuthService {
         user.setLastName(lastName);
         user.setPassword(PasswordManagerImpl.hashPassword(password));
         this.userRepository.save(user);
+    }
+
+    @Override
+    public JwtAuthenticationResponse login(String email, String password) {
+        this.authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email, password)
+        );
+
+        Optional<User> optionalUser = this.userRepository.findByEmail(email);
+
+        if (optionalUser.isEmpty()) {
+            throw new UserNotFoundException();
+        }
+
+        User user = optionalUser.get();
+        // Check if user is verified
+
+        if (!PasswordManagerImpl.matchPassword(password, user.getPassword())){
+            throw new PasswordDidNotMatchException();
+        }
+
+        return JwtAuthenticationResponse.builder().token(this.jwtService.generateToken(user)).build();
     }
 }
