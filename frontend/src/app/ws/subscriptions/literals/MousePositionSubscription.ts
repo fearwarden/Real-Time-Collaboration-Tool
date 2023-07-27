@@ -7,7 +7,7 @@ export interface MousePosition {
     y: number,
 }
 
-export default class MousePositionSubsription extends AbstractSubscription {
+export default class MousePositionSubscription extends AbstractSubscription {
 
     constructor() {
         super("/topic/strategies/mouse-position", (message: any) => {
