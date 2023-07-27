@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import Main from '../../app/Main';
+import SideMenu from './components/SideMenu';
 
 function StrategyPage() {
     const canvas = useRef<HTMLCanvasElement | null>(null);
@@ -15,7 +16,7 @@ function StrategyPage() {
       <>
         <div className="flex w-full h-full">
           <div className="w-1/5 h-full bg-white">
-            <p>Hellow</p>
+            <SideMenu></SideMenu>
           </div>
           <canvas className="grow" ref={canvas} id="myCanvas" width="100%" height="100%" style={{background: "grey"}}></canvas>
         </div>
