@@ -7,6 +7,7 @@ import { AnyCnameRecord } from "dns";
 export default class StompClient {
 
     private stompClient: CompatClient | null = null;
+    private stompInitialized: boolean = false;
     
     public connect(): void {
         var socket = new SockJS('http://localhost:8080/ws');
@@ -37,16 +38,17 @@ export default class StompClient {
                     }
                 });
             }
+            this.stompInitialized = true;
         });
     }
 
     public disconnect(): void {
-        if(!this.stompClient) return;
+        if(!this.stompClient || !this.stompInitialized) return;
         this.stompClient.disconnect();
     }
 
     public send(endpoint: string, message: any): void {
-        if(this.stompClient == null) return;
+        if(!this.stompInitialized || this.stompClient == null) return;
         this.stompClient.send(endpoint, {}, JSON.stringify(message));
       }
 

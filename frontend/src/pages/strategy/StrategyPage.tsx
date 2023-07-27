@@ -14,9 +14,10 @@ function StrategyPage() {
     return (
       <>
         <div className="flex w-full h-full">
-          <div className=" h-full bg-white">
+          <div className="w-1/5 h-full bg-white">
+            <p>Hellow</p>
           </div>
-          <canvas ref={canvas} id="myCanvas" width="auto" height="auto" style={{background: "grey"}}></canvas>
+          <canvas className="grow" ref={canvas} id="myCanvas" width="100%" height="100%" style={{background: "grey"}}></canvas>
         </div>
       </>
     );
