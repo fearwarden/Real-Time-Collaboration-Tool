@@ -1,8 +1,6 @@
 package com.bnm.valorantstrategyplanner.auth.services.implementations;
 
 import com.bnm.valorantstrategyplanner.auth.services.JwtService;
-import com.bnm.valorantstrategyplanner.users.dto.response.UserDto;
-import com.bnm.valorantstrategyplanner.users.exceptions.throwables.UserNotFoundException;
 import com.bnm.valorantstrategyplanner.users.models.User;
 import com.bnm.valorantstrategyplanner.users.repositories.UserRepository;
 import io.jsonwebtoken.Claims;
