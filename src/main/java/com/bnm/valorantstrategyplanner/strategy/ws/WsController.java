@@ -11,7 +11,6 @@ public class WsController {
     @MessageMapping("/mouse-position")
     @SendTo("/topic/strategies/mouse-position")
     public MousePosition registerMousePosition(@Validated MousePosition mousePosition) {
-        System.out.println(mousePosition);
         return mousePosition;
     }
 
