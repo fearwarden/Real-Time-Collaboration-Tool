@@ -1,4 +1,8 @@
 import AbstractSpell from "./AbstractSpell";
+import Incendiary from "./literals/brimstone/Incendiary";
+import OrbitalStrike from "./literals/brimstone/OrbitalStrike";
+import SkySmoke from "./literals/brimstone/SkySmoke";
+import StimBeacon from "./literals/brimstone/StimBeacon";
 import BladeStorm from "./literals/jett/BladeStorm";
 import CloudBurst from "./literals/jett/CloudBurst";
 import TailwindSpell from "./literals/jett/TailwindSpell";
@@ -16,6 +20,12 @@ export default class SpellFactory {
       new UpDraft(),
       new TailwindSpell(),
       new BladeStorm(),
+    ],
+    Brimstone: [
+      new StimBeacon(),
+      new Incendiary(),
+      new SkySmoke(),
+      new OrbitalStrike(),
     ],
   };
 
