@@ -18,7 +18,7 @@ function StrategyPage() {
           <div className="w-1/5 h-full bg-white">
             <SideMenu></SideMenu>
           </div>
-          <canvas className="grow" ref={canvas} id="myCanvas" width="100%" height="100%" style={{background: "grey"}}></canvas>
+          <canvas className="grow" ref={canvas} id="myCanvas" width="500" height="500" style={{background: "grey"}}></canvas>
         </div>
       </>
     );
