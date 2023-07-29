@@ -11,6 +11,10 @@ import Blaze from "./literals/phoenix/Blaze";
 import CurveBall from "./literals/phoenix/CurveBall";
 import HotHands from "./literals/phoenix/HotHands";
 import RunItBack from "./literals/phoenix/RunItBack";
+import PoisonCloud from "./literals/viper/PoisonCloud";
+import SnakeBite from "./literals/viper/SnakeBite";
+import ToxicScreen from "./literals/viper/TxociScreen";
+import VipersPit from "./literals/viper/VipersPit";
 
 export default class SpellFactory {
   private static spellMap: Record<string, AbstractSpell[]> = {
@@ -26,6 +30,12 @@ export default class SpellFactory {
       new Incendiary(),
       new SkySmoke(),
       new OrbitalStrike(),
+    ],
+    Viper: [
+      new SnakeBite(),
+      new PoisonCloud(),
+      new ToxicScreen(),
+      new VipersPit(),
     ],
   };
 
