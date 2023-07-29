@@ -1,9 +1,12 @@
 import AbstractSpell from "./AbstractSpell";
 import Blaze from "./literals/phoenix/Blaze";
+import CurveBall from "./literals/phoenix/CurveBall";
+import HotHands from "./literals/phoenix/HotHands";
+import RunItBack from "./literals/phoenix/RunItBack";
 
 export default class SpellFactory {
   private static spellMap: Record<string, AbstractSpell[]> = {
-    Phoenix: [new Blaze()],
+    Phoenix: [new Blaze(), new CurveBall(), new HotHands(), new RunItBack()],
   };
 
   static getSpellsForAgent(agentName: string): AbstractSpell[] {
