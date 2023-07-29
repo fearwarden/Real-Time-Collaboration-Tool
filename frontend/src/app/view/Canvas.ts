@@ -1,4 +1,4 @@
-import Main from "./Main";
+import Main from "../Main";
 
 export default class Canvas {
 
@@ -40,7 +40,4 @@ export default class Canvas {
               })
         })
     }
-
-
-
 }

@@ -1,4 +1,4 @@
-import Canvas from "./Canvas";
+import Canvas from "./view/Canvas";
 import StompClient from "./ws/StompClient";
 import SubscriptionManager from "./ws/subscriptions/SubscriptionManager";
 import { v4 as generateUUID} from "uuid";
