@@ -7,6 +7,7 @@ import BladeStorm from "./literals/jett/BladeStorm";
 import CloudBurst from "./literals/jett/CloudBurst";
 import TailwindSpell from "./literals/jett/TailwindSpell";
 import UpDraft from "./literals/jett/UpDraft";
+import ShroudedStep from "./literals/omen/ShroudedStep";
 import Blaze from "./literals/phoenix/Blaze";
 import CurveBall from "./literals/phoenix/CurveBall";
 import HotHands from "./literals/phoenix/HotHands";
@@ -37,6 +38,7 @@ export default class SpellFactory {
       new ToxicScreen(),
       new VipersPit(),
     ],
+    Omen: [new ShroudedStep()],
   };
 
   static getSpellsForAgent(agentName: string): AbstractSpell[] {
