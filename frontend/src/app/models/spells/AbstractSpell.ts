@@ -1,8 +1,8 @@
 export default abstract class AbstractSpell {
-  private agentName: string;
-  private name: string;
-  private image: string;
-  private spellType: string;
+  private _agentName: string;
+  private _name: string;
+  private _image: string;
+  private _spellType: string;
 
   constructor(
     agentName: string,
@@ -10,25 +10,25 @@ export default abstract class AbstractSpell {
     image: string,
     spellType: string
   ) {
-    this.agentName = agentName;
-    this.name = name;
-    this.image = image;
-    this.spellType = spellType;
+    this._agentName = agentName;
+    this._name = name;
+    this._image = image;
+    this._spellType = spellType;
   }
 
-  public get getAgentName(): string {
-    return this.agentName;
+  public get agentName(): string {
+    return this._agentName;
   }
 
-  public get getName(): string {
-    return this.name;
+  public get name(): string {
+    return this._name;
   }
 
-  public get getImage(): string {
-    return this.image;
+  public get image(): string {
+    return this._image;
   }
 
-  public get getSpellType(): string {
-    return this.spellType;
+  public get spellType(): string {
+    return this._spellType;
   }
 }
