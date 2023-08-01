@@ -1,6 +1,7 @@
 import Main from "../Main";
 import ElementNode from "../models/elements/ElementNode";
 import ISubscriber from "../utils/observer/ISubscriber";
+import ElementView from "./ElementView";
 
 export default class Canvas implements ISubscriber {
   private _canvasElement: HTMLCanvasElement;
@@ -10,6 +11,8 @@ export default class Canvas implements ISubscriber {
   private _height: number;
   private _ctx: CanvasRenderingContext2D;
 
+  private _elementList: ElementView[];
+
   //TODO: Add functionality to redraw the canvas when window changes size
   constructor(canvas: HTMLCanvasElement) {
     this._canvasElement = canvas;
@@ -17,6 +20,8 @@ export default class Canvas implements ISubscriber {
     this._width = this.canvasElement.clientWidth;
     this._height = this.canvasElement.clientHeight;
     this._ctx = canvas.getContext("2d")!;
+
+    this._elementList = [];
 
     this.fixCanvasScalling();
 
@@ -66,12 +71,13 @@ export default class Canvas implements ISubscriber {
   private redrawCanvas() {
     // Clear whole canvas in order to redraw the whole context
     this.clearCanvas();
+		this.drawCanvas();
   }
 
   private drawCanvas(): void {
-    const data = Main.getInstance().strategyModel.elements;
-    data.forEach((element: ElementNode) => {
+    this.elementList.forEach((element: ElementView) => {
       console.log(element);
+			element.draw();
     });
   }
 
@@ -104,5 +110,11 @@ export default class Canvas implements ISubscriber {
   }
   public set height(value: number) {
     this._height = value;
+  }
+  public get elementList(): ElementView[] {
+    return this._elementList;
+	}
+  public set elementList(value: ElementView[]) {
+    this._elementList = value;
   }
 }
