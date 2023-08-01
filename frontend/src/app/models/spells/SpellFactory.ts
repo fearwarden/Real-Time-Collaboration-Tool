@@ -11,6 +11,9 @@ import Alarmbot from "./literals/killjoy/Alarmbot";
 import Lockdown from "./literals/killjoy/Lockdown";
 import Nanoswarm from "./literals/killjoy/Nanoswarm";
 import Turret from "./literals/killjoy/Turret";
+import DarkCover from "./literals/omen/DarkCover";
+import FromTheShadow from "./literals/omen/FromTheShadow";
+import Paranoia from "./literals/omen/Paranoia";
 import ShroudedStep from "./literals/omen/ShroudedStep";
 import Blaze from "./literals/phoenix/Blaze";
 import CurveBall from "./literals/phoenix/CurveBall";
@@ -42,7 +45,12 @@ export default class SpellFactory {
       new ToxicScreen(),
       new VipersPit(),
     ],
-    Omen: [new ShroudedStep()],
+    Omen: [
+      new ShroudedStep(),
+      new Paranoia(),
+      new DarkCover(),
+      new FromTheShadow(),
+    ],
     Killjoy: [new Nanoswarm(), new Alarmbot(), new Turret(), new Lockdown()],
   };
 
