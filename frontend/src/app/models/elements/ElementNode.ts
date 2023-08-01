@@ -26,7 +26,7 @@ export default abstract class ElementNode implements IPublisher {
             subscriber.update(notification);
         }
     }
-    
+
     addSubscriber(subscriber: ISubscriber): void {
         this.subscribers.push(subscriber);
     }
@@ -34,14 +34,6 @@ export default abstract class ElementNode implements IPublisher {
     removeSubscriber(subscriber: ISubscriber): void {
         if(this.subscribers.includes(subscriber))
             this.subscribers.splice(this.subscribers.indexOf(subscriber, 1));
-    }
-
-    public set setX(x: number) {
-        this.x = x;
-    }
-
-    public set setY(y: number) {
-        this.y = y;
     }
 
     public get height(): number {

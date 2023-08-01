@@ -6,11 +6,9 @@ export default abstract class MovableElementNode extends ElementNode {
         super(x, y, height, width);
     }
 
-    handleDrag(e: MouseEvent){
-        if(e.target instanceof HTMLCanvasElement){
-            super.setX = e.clientX - e.target!.offsetLeft;
-            super.setY = e.clientY - e.target!.offsetTop;
-            super.notifySubscribers(this);
-        }
+    public handleDrag(x: number, y: number){
+        super.x = x;
+        super.y = y
+        super.notifySubscribers(this);
     }
 }
