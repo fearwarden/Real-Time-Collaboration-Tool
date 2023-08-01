@@ -1,4 +1,4 @@
-export default interface AbstractCommand {
+export default interface ICommand {
     doCommand(): void;
     undoCommand(): void;
 }

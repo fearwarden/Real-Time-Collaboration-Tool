@@ -1,71 +1,92 @@
+import CommandManager from "./commands/CommandManager";
+import ActionManager from "./controller/actions/ActionManager";
 import Strategy from "./models/Strategy";
-import AgentView from "./view/AgentView";
 import Canvas from "./view/Canvas";
 import StompClient from "./ws/StompClient";
 import SubscriptionManager from "./ws/subscriptions/SubscriptionManager";
 import { v4 as generateUUID } from "uuid";
 
 export default class Main {
-  private _subscriptionManager: SubscriptionManager;
+	private _subscriptionManager: SubscriptionManager;
 
-  private _canvas: Canvas | null = null;
+	private _actionManager: ActionManager;
 
-  private _strategyModel: Strategy;
+	private _commandManager: CommandManager;
 
-  private _stompClient: StompClient;
 
-  private _userId: string = generateUUID();
+	private _canvas: Canvas | null = null;
 
-  private static _instance: Main | null = null;
+	private _strategyModel: Strategy;
 
-  private constructor() {
-    this._subscriptionManager = new SubscriptionManager();
-    this._stompClient = new StompClient();
-    this._strategyModel = new Strategy();
-  }
+	private _stompClient: StompClient;
 
-  public get subscriptionManager(): SubscriptionManager {
-    return this._subscriptionManager;
-  }
-  public set subscriptionManager(value: SubscriptionManager) {
-    this._subscriptionManager = value;
-  }
+	private _userId: string = generateUUID();
 
-  public get userId(): string {
-    return this._userId;
-  }
-  public set userId(value: string) {
-    this._userId = value;
-  }
+	private static _instance: Main | null = null;
 
-  public get stompClient(): StompClient {
-    return this._stompClient;
-  }
-  public set stompClient(value: StompClient) {
-    this._stompClient = value;
-  }
+	private constructor() {
+		this._subscriptionManager = new SubscriptionManager();
+		this._stompClient = new StompClient();
+		this._strategyModel = new Strategy();
+		this._actionManager = new ActionManager();
+		this._commandManager = new CommandManager();
+	}
 
-  public get canvas(): Canvas | null {
-    if (this._canvas == null) {
-      throw new Error("Canvas is not initialized.");
-    }
-    return this._canvas;
-  }
-  public set canvas(value: HTMLCanvasElement) {
-    this._canvas = new Canvas(value);
-  }
+	public get subscriptionManager(): SubscriptionManager {
+		return this._subscriptionManager;
+	}
+	public set subscriptionManager(value: SubscriptionManager) {
+		this._subscriptionManager = value;
+	}
 
-  public get strategyModel(): Strategy {
-    return this._strategyModel;
-  }
-  public set strategyModel(value: Strategy) {
-    this._strategyModel = value;
-  }
+	public get userId(): string {
+		return this._userId;
+	}
+	public set userId(value: string) {
+		this._userId = value;
+	}
 
-  public static getInstance(): Main {
-    if (this._instance == null) {
-      this._instance = new Main();
-    }
-    return this._instance;
-  }
+	public get stompClient(): StompClient {
+		return this._stompClient;
+	}
+	public set stompClient(value: StompClient) {
+		this._stompClient = value;
+	}
+
+	public get canvas(): Canvas | null {
+		if (this._canvas == null) {
+			throw new Error("Canvas is not initialized.");
+		}
+		return this._canvas;
+	}
+	public set canvas(value: HTMLCanvasElement) {
+		this._canvas = new Canvas(value);
+	}
+
+	public get strategyModel(): Strategy {
+		return this._strategyModel;
+	}
+	public set strategyModel(value: Strategy) {
+		this._strategyModel = value;
+	}
+	public get actionManager(): ActionManager {
+		return this._actionManager;
+	}
+	public set actionManager(value: ActionManager) {
+		this._actionManager = value;
+	}
+	public get commandManager(): CommandManager {
+		return this._commandManager;
+	}
+	public set commandManager(value: CommandManager) {
+		this._commandManager = value;
+	}
+
+
+	public static getInstance(): Main {
+		if (this._instance == null) {
+			this._instance = new Main();
+		}
+		return this._instance;
+	}
 }
