@@ -1,4 +1,5 @@
 import React from 'react'
+import Main from '../../../app/Main'
 
 function SideMenu() {
   return (

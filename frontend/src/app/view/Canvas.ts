@@ -75,6 +75,14 @@ export default class Canvas implements ISubscriber {
     });
   }
 
+  public drawImage(image: string, x: number, y: number): void {
+    const drawableImage = new Image();
+    drawableImage.src = image;
+    drawableImage.onload = () => {
+      this._ctx.drawImage(drawableImage, x, y);
+    };
+  }
+
   private clearCanvas(): void {
     this._ctx?.clearRect(0, 0, this.width, this.height);
   }
