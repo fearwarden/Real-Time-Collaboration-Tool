@@ -23,6 +23,10 @@ import Blaze from "./literals/phoenix/Blaze";
 import CurveBall from "./literals/phoenix/CurveBall";
 import HotHands from "./literals/phoenix/HotHands";
 import RunItBack from "./literals/phoenix/RunItBack";
+import BarrierOrb from "./literals/sage/BarrierOrb";
+import HealingOrb from "./literals/sage/HealingOrb";
+import Resurrection from "./literals/sage/Resurrection";
+import SlowOrb from "./literals/sage/SlowOrb";
 import HuntersFury from "./literals/sova/HuntersFury";
 import OwlDrone from "./literals/sova/OwlDrone";
 import ReconBolt from "./literals/sova/ReconBolt";
@@ -62,6 +66,12 @@ export default class SpellFactory {
     Killjoy: [new Nanoswarm(), new Alarmbot(), new Turret(), new Lockdown()],
     Cypher: [new Trapwire(), new CyberCage(), new Spycam(), new NeuralTheft()],
     Sova: [new OwlDrone(), new ShockBolt(), new ReconBolt(), new HuntersFury()],
+    Sage: [
+      new BarrierOrb(),
+      new SlowOrb(),
+      new HealingOrb(),
+      new Resurrection(),
+    ],
   };
 
   static getSpellsForAgent(agentName: string): AbstractSpell[] {
