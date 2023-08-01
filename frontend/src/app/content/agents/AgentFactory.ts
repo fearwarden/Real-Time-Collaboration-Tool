@@ -4,6 +4,7 @@ import Jett from "./literals/Jett";
 import Killjoy from "./literals/Killjoy";
 import Omen from "./literals/Omen";
 import Phoenix from "./literals/Phoenix";
+import Reyna from "./literals/Reyna";
 import Sage from "./literals/Sage";
 import Sova from "./literals/Sova";
 import Viper from "./literals/Viper";
@@ -29,6 +30,8 @@ export default class AgentFactory {
         return new Sova();
       case "Viper":
         return new Viper();
+      case "Reyna":
+        return new Reyna();
 
       default:
         throw new Error("Agent does not exist.");

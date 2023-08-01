@@ -66,6 +66,7 @@ export default class Canvas implements ISubscriber {
   private redrawCanvas() {
     // Clear whole canvas in order to redraw the whole context
     this.clearCanvas();
+    this.drawCanvas();
   }
 
   private drawCanvas(): void {
