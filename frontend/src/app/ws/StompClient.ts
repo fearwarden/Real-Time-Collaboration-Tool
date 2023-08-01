@@ -2,22 +2,22 @@ import { CompatClient, Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import AbstractSubscription from "./subscriptions/AbstractSubscription";
 import Main from "../Main";
-import { AnyCnameRecord } from "dns";
 
 export default class StompClient {
 
-    private stompClient: CompatClient | null = null;
+    private _stompClient: CompatClient | null = null;
+    
     private stompInitialized: boolean = false;
     
     public connect(): void {
         var socket = new SockJS('http://localhost:8080/ws');
         this.stompClient = Stomp.over(socket);
-        if(this.stompClient == null) {
+        if(this._stompClient == null) {
             throw new Error("Stomp client not initialized.");
         }
         this.stompClient.debug = () => {};
 
-        const subscriptions: AbstractSubscription[] = Main.getInstance().getSubscriptionManager.getSubscriptions();
+        const subscriptions: AbstractSubscription[] = Main.getInstance().subscriptionManager.getSubscriptions();
 
         const subMap = new Map<string, Function[]>();
 
@@ -25,9 +25,9 @@ export default class StompClient {
             const sub = subscriptions[i];
 
             if(subMap.has(sub.getTopic)){
-                subMap.get(sub.getTopic)!.push(sub.getCallback);
+                subMap.get(sub.getTopic)!.push(sub.callback);
             } else {
-                subMap.set(sub.getTopic, [sub.getCallback]);
+                subMap.set(sub.getTopic, [sub.callback]);
             }
         }
         this.stompClient.connect({}, (frame: any) => {
@@ -50,6 +50,13 @@ export default class StompClient {
     public send(endpoint: string, message: any): void {
         if(!this.stompInitialized || this.stompClient == null) return;
         this.stompClient.send(endpoint, {}, JSON.stringify(message));
-      }
+    }
+
+    public get stompClient(): CompatClient | null {
+        return this._stompClient;
+    }
+    public set stompClient(value: CompatClient | null) {
+        this._stompClient = value;
+    }
 
 }

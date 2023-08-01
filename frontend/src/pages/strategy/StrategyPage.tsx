@@ -7,8 +7,8 @@ function StrategyPage() {
 
     useEffect(() => {
       if(canvas.current != null) {
-        Main.getInstance().setCanvas = canvas.current!;
-        Main.getInstance().getStompClient.connect();
+        Main.getInstance().canvas = canvas.current!;
+        Main.getInstance().stompClient.connect();
       }
     }, [canvas])
     

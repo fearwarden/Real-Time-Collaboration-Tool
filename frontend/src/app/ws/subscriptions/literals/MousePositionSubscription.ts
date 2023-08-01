@@ -12,9 +12,9 @@ export default class MousePositionSubscription extends AbstractSubscription {
     constructor() {
         super("/topic/strategies/mouse-position", (message: any) => {
             const data: MousePosition = JSON.parse(message.body);
-            if(data.userId === Main.getInstance().getUserId) return;
+            if(data.userId === Main.getInstance().userId) return;
             // Keep the dot within the canvas boundaries
-            Main.getInstance().getCanvas.drawDot(data.x, data.y);
+            Main.getInstance().canvas!.drawDot(data.x, data.y);
         });
     }
 }
