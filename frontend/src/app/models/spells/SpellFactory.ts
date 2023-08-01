@@ -3,6 +3,10 @@ import Incendiary from "./literals/brimstone/Incendiary";
 import OrbitalStrike from "./literals/brimstone/OrbitalStrike";
 import SkySmoke from "./literals/brimstone/SkySmoke";
 import StimBeacon from "./literals/brimstone/StimBeacon";
+import CyberCage from "./literals/cypher/CyberCage";
+import NeuralTheft from "./literals/cypher/NeuralTheft";
+import Spycam from "./literals/cypher/Spycam";
+import Trapwire from "./literals/cypher/TrapWire";
 import BladeStorm from "./literals/jett/BladeStorm";
 import CloudBurst from "./literals/jett/CloudBurst";
 import TailwindSpell from "./literals/jett/TailwindSpell";
@@ -52,6 +56,7 @@ export default class SpellFactory {
       new FromTheShadow(),
     ],
     Killjoy: [new Nanoswarm(), new Alarmbot(), new Turret(), new Lockdown()],
+    Cypher: [new Trapwire(), new CyberCage(), new Spycam(), new NeuralTheft()],
   };
 
   static getSpellsForAgent(agentName: string): AbstractSpell[] {
