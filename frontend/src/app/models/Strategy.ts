@@ -5,10 +5,10 @@ import ElementNode from "./elements/ElementNode";
 export default class Strategy implements IPublisher{
     private _elements: ElementNode[];
     
-    
     constructor() {
         this._elements = []; 
     }
+    
     notifySubscribers(notification: any): void {
         throw new Error("Method not implemented.");
     }

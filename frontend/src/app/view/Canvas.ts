@@ -16,7 +16,7 @@ export default class Canvas {
         this._width = this.canvasElement.clientWidth;
         this._height = this.canvasElement.clientHeight;
 
-        this.redrawCanvas();
+        this.fixCanvasScalling();
 
         this.setupMousePositionTracker();
     }
@@ -49,7 +49,7 @@ export default class Canvas {
         })
     }
 
-    private redrawCanvas() {
+    private fixCanvasScalling() {
         this.width = this.canvasElement.clientWidth;
         this.height = this.canvasElement.clientHeight;
         this.canvasElement.width = this.width; // Fix canvas scalling - https://stackoverflow.com/questions/1664785/resize-html5-canvas-to-fit-window
