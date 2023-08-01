@@ -6,7 +6,7 @@ import StimBeacon from "./literals/brimstone/StimBeacon";
 import CyberCage from "./literals/cypher/CyberCage";
 import NeuralTheft from "./literals/cypher/NeuralTheft";
 import Spycam from "./literals/cypher/Spycam";
-import Trapwire from "./literals/cypher/TrapWire";
+import Trapwire from "./literals/cypher/Trapwire";
 import BladeStorm from "./literals/jett/BladeStorm";
 import CloudBurst from "./literals/jett/CloudBurst";
 import TailwindSpell from "./literals/jett/TailwindSpell";
@@ -23,6 +23,10 @@ import Blaze from "./literals/phoenix/Blaze";
 import CurveBall from "./literals/phoenix/CurveBall";
 import HotHands from "./literals/phoenix/HotHands";
 import RunItBack from "./literals/phoenix/RunItBack";
+import HuntersFury from "./literals/sova/HuntersFury";
+import OwlDrone from "./literals/sova/OwlDrone";
+import ReconBolt from "./literals/sova/ReconBolt";
+import ShockBolt from "./literals/sova/ShockBolt";
 import PoisonCloud from "./literals/viper/PoisonCloud";
 import SnakeBite from "./literals/viper/SnakeBite";
 import ToxicScreen from "./literals/viper/TxociScreen";
@@ -57,6 +61,7 @@ export default class SpellFactory {
     ],
     Killjoy: [new Nanoswarm(), new Alarmbot(), new Turret(), new Lockdown()],
     Cypher: [new Trapwire(), new CyberCage(), new Spycam(), new NeuralTheft()],
+    Sova: [new OwlDrone(), new ShockBolt(), new ReconBolt(), new HuntersFury()],
   };
 
   static getSpellsForAgent(agentName: string): AbstractSpell[] {
