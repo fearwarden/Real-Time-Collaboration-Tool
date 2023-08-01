@@ -23,6 +23,14 @@ import Blaze from "./literals/phoenix/Blaze";
 import CurveBall from "./literals/phoenix/CurveBall";
 import HotHands from "./literals/phoenix/HotHands";
 import RunItBack from "./literals/phoenix/RunItBack";
+import BlastPack from "./literals/raze/BlastPack";
+import BoomBot from "./literals/raze/BoomBot";
+import PaintShells from "./literals/raze/PaintShells";
+import Showstopper from "./literals/raze/Showstopper";
+import Devour from "./literals/reyna/Devour";
+import Dismiss from "./literals/reyna/Dismiss";
+import Empress from "./literals/reyna/Empress";
+import Leer from "./literals/reyna/Leer";
 import BarrierOrb from "./literals/sage/BarrierOrb";
 import HealingOrb from "./literals/sage/HealingOrb";
 import Resurrection from "./literals/sage/Resurrection";
@@ -71,6 +79,13 @@ export default class SpellFactory {
       new SlowOrb(),
       new HealingOrb(),
       new Resurrection(),
+    ],
+    Reyna: [new Leer(), new Devour(), new Dismiss(), new Empress()],
+    Raze: [
+      new BoomBot(),
+      new BlastPack(),
+      new PaintShells(),
+      new Showstopper(),
     ],
   };
 
