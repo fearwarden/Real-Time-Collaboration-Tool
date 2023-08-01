@@ -10,7 +10,7 @@ export default abstract class MovableElementNode extends ElementNode {
         if(e.target instanceof HTMLCanvasElement){
             super.setX = e.clientX - e.target!.offsetLeft;
             super.setY = e.clientY - e.target!.offsetTop;
+            super.notifySubscribers(this);
         }
     }
-
 }

@@ -1,3 +1,3 @@
 export default interface ISubscriber {
-    onNotificationRecieved(notification: any): void;
+    update(notification: any): void;
 }
