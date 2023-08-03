@@ -1,7 +1,7 @@
 import Main from "../Main";
 import AgentFactory from "../content/agents/AgentFactory";
 import AgentNode from "../models/AgentNode";
-import { Geometry } from "../models/elements/ElementNode";
+import ElementNode, { Geometry } from "../models/elements/ElementNode";
 import ElementView from "./ElementView";
 
 export default class AgentView implements ElementView {
@@ -17,6 +17,10 @@ export default class AgentView implements ElementView {
       20
     );
   }
+  get elementNode(): ElementNode {
+    return this.agentNode as ElementNode;
+  }
+
   getGeometry(): Geometry {
     return {
       x: this.agentNode.x,
