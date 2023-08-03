@@ -50,6 +50,8 @@ export default class AgentView implements ElementView {
     this.agentImage.src = this.agentNode.agentContent.image;
     this.agentImage.onload = () => {
       this.agentImageLoaded = true;
+      this.agentNode.width = this.agentImage.width;
+      this.agentNode.height = this.agentImage.height;
       Main.getInstance().canvas?.redrawCanvas();
     }
   }
