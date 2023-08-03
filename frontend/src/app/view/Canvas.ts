@@ -1,6 +1,8 @@
 import Main from "../Main";
 import ElementNode from "../models/elements/ElementNode";
+import CoordinateUtils from "../utils/CoordinateUtils";
 import ISubscriber from "../utils/observer/ISubscriber";
+import AgentView from "./AgentView";
 import ElementView from "./ElementView";
 
 export default class Canvas implements ISubscriber {
@@ -12,6 +14,7 @@ export default class Canvas implements ISubscriber {
 	private _ctx: CanvasRenderingContext2D;
 
 	private _elementList: ElementView[];
+	private _activeElement: ElementView | null;
 
 	//TODO: Add functionality to redraw the canvas when window changes size
 	constructor(canvas: HTMLCanvasElement) {
@@ -22,10 +25,12 @@ export default class Canvas implements ISubscriber {
 		this._ctx = canvas.getContext("2d")!;
 
 		this._elementList = [];
+		this._activeElement = null;
 
 		this.fixCanvasScalling();
 
 		this.setupMousePositionTracker();
+		this.setupHoveredElementTracker();
 	}
 	update(notification: any): void {
 		if (notification instanceof ElementNode) {
@@ -61,6 +66,26 @@ export default class Canvas implements ISubscriber {
 		});
 	}
 
+	private setupHoveredElementTracker() {
+		this.canvasElement.addEventListener("mousemove", (e) => {
+			if (e.target instanceof HTMLCanvasElement) {
+				const x: number = e.clientX - e.target.offsetLeft;
+				const y: number = e.clientY - e.target.offsetTop;
+
+				for (let element of this.elementList) {
+					const elementGeometry = element.getGeometry();
+					if (
+						CoordinateUtils.checkCoordinatesInElement({ x, y }, elementGeometry)
+					) {
+						this.activeElement = element;
+						return;
+					}
+				}
+				this.activeElement = null;
+			}
+		});
+	}
+
 	private fixCanvasScalling() {
 		this.width = this.canvasElement.clientWidth;
 		this.height = this.canvasElement.clientHeight;
@@ -68,6 +93,14 @@ export default class Canvas implements ISubscriber {
 		this.canvasElement.height = this.height;
 	}
 
+	public drawImage(image: string, x: number, y: number, callback: (h: number, w: number) => void = (height, width) => { }): void {
+		const drawableImage = new Image();
+		drawableImage.src = image;
+		drawableImage.onload = () => {
+			this._ctx.drawImage(drawableImage, x, y);
+			callback(drawableImage.height, drawableImage.width);
+		};
+	}
 	public redrawCanvas() {
 		// Clear whole canvas in order to redraw the whole context
 		this.clearCanvas();
@@ -78,15 +111,6 @@ export default class Canvas implements ISubscriber {
 		this.elementList.forEach((element: ElementView) => {
 			element.draw();
 		});
-	}
-
-	public drawImage(image: string, x: number, y: number, callback: (h: number, w: number) => void = (height, width) => { }): void {
-		const drawableImage = new Image();
-		drawableImage.src = image;
-		drawableImage.onload = () => {
-			this._ctx.drawImage(drawableImage, x, y);
-			callback(drawableImage.height, drawableImage.width);
-		};
 	}
 
 	private clearCanvas(): void {
@@ -116,5 +140,8 @@ export default class Canvas implements ISubscriber {
 	}
 	public set elementList(value: ElementView[]) {
 		this._elementList = value;
+	}
+	private set activeElement(value: ElementView | null) {
+		this._activeElement = value;
 	}
 }
