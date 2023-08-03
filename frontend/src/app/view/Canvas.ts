@@ -3,7 +3,6 @@ import ElementNode from "../models/elements/ElementNode";
 import MovableElementNode from "../models/elements/MovableElementNode";
 import CoordinateUtils from "../utils/CoordinateUtils";
 import ISubscriber from "../utils/observer/ISubscriber";
-import AgentView from "./AgentView";
 import ElementView from "./ElementView";
 
 export default class Canvas implements ISubscriber {
@@ -137,11 +136,7 @@ export default class Canvas implements ISubscriber {
 		this.canvasElement.height = this.height;
 	}
 
-	public drawImage(
-		image: HTMLImageElement,
-		x: number,
-		y: number,
-	): void {
+	public drawImage(image: HTMLImageElement, x: number, y: number): void {
 		this._ctx.drawImage(image, x, y);
 	}
 	public redrawCanvas() {
