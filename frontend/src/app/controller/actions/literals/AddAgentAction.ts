@@ -4,8 +4,8 @@ import AgentView from "../../../view/AgentView";
 import IAction from "../IAction";
 
 export default class AddAgentAction implements IAction {
-    doAction(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-        if (event.target instanceof HTMLButtonElement) {
+    doAction(event: React.MouseEvent<HTMLImageElement, MouseEvent>): void {
+        if (event.target instanceof HTMLImageElement) {
             const agentName = event.target.dataset.agentname;
             if (!agentName) return;
             const agentView = new AgentView(agentName);

@@ -69,7 +69,9 @@ export default class Canvas implements ISubscriber {
 	}
 
 	private setupHoveredElementTracker() {
+		let isMouseDown = false;
 		this.canvasElement.addEventListener("mousemove", (e) => {
+			if (isMouseDown) return;
 			if (e.target instanceof HTMLCanvasElement) {
 				const x: number = e.clientX - e.target.offsetLeft;
 				const y: number = e.clientY - e.target.offsetTop;
@@ -88,6 +90,13 @@ export default class Canvas implements ISubscriber {
 				this.disableCursor();
 			}
 		});
+		this.canvasElement.addEventListener("mousedown", () => {
+			isMouseDown = true;
+		})
+		this.canvasElement.addEventListener("mouseup", () => {
+			isMouseDown = false;
+		})
+
 	}
 
 	private setupElementDragging() {

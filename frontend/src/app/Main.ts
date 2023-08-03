@@ -1,4 +1,5 @@
 import CommandManager from "./commands/CommandManager";
+import AgentManager from "./content/agents/AgentManager";
 import ActionManager from "./controller/actions/ActionManager";
 import Strategy from "./models/Strategy";
 import Canvas from "./view/Canvas";
@@ -12,6 +13,8 @@ export default class Main {
 	private _actionManager: ActionManager;
 
 	private _commandManager: CommandManager;
+
+	private _agentManager: AgentManager;
 
 
 	private _canvas: Canvas | null = null;
@@ -30,6 +33,7 @@ export default class Main {
 		this._strategyModel = new Strategy();
 		this._actionManager = new ActionManager();
 		this._commandManager = new CommandManager();
+		this._agentManager = new AgentManager();
 	}
 
 	public get subscriptionManager(): SubscriptionManager {
@@ -80,6 +84,12 @@ export default class Main {
 	}
 	public set commandManager(value: CommandManager) {
 		this._commandManager = value;
+	}
+	public get agentManager(): AgentManager {
+		return this._agentManager;
+	}
+	public set agentManager(value: AgentManager) {
+		this._agentManager = value;
 	}
 
 
