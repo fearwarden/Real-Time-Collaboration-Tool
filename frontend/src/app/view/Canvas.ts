@@ -80,7 +80,7 @@ export default class Canvas implements ISubscriber {
 		});
 	}
 
-	public drawImage(image: string, x: number, y: number, callback: (h: number, w: number) => void): void {
+	public drawImage(image: string, x: number, y: number, callback: (h: number, w: number) => void = (height, width) => { }): void {
 		const drawableImage = new Image();
 		drawableImage.src = image;
 		drawableImage.onload = () => {
