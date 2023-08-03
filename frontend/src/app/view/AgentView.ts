@@ -6,6 +6,8 @@ import ElementView from "./ElementView";
 
 export default class AgentView implements ElementView {
   private _agentNode: AgentNode;
+  private agentImageLoaded: boolean;
+  private agentImage: HTMLImageElement;
 
   constructor(agentName: string) {
     // TODO: change the coordinates
@@ -16,7 +18,12 @@ export default class AgentView implements ElementView {
       20,
       20
     );
+    this.agentImage = new Image();
+    this.agentImageLoaded = false;
+
+    this.loadImage();
   }
+
   get elementNode(): ElementNode {
     return this.agentNode as ElementNode;
   }
@@ -31,15 +38,20 @@ export default class AgentView implements ElementView {
   }
 
   draw(): void {
+    if (!this.agentImageLoaded) return;
     Main.getInstance().canvas?.drawImage(
-      this.agentNode.agentContent.image,
+      this.agentImage,
       this.agentNode.x,
       this.agentNode.y,
-      (height, width) => {
-        this.agentNode.height = height;
-        this.agentNode.width = width;
-      }
     );
+  }
+
+  private loadImage() {
+    this.agentImage.src = this.agentNode.agentContent.image;
+    this.agentImage.onload = () => {
+      this.agentImageLoaded = true;
+      Main.getInstance().canvas?.redrawCanvas();
+    }
   }
 
   public get agentNode(): AgentNode {
