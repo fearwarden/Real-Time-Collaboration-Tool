@@ -11,7 +11,7 @@ export default class AddAgentCommand implements ICommand {
 
   doCommand(): void {
     this.agent.agentNode.addSubscriber(Main.getInstance().canvas!);
-    Main.getInstance().canvas?.elementList.push(this.agent);
+    Main.getInstance().canvas?.elementList.unshift(this.agent); // Dodaje na pocetak liste
     Main.getInstance().canvas?.redrawCanvas();
   }
   undoCommand(): void {

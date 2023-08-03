@@ -106,6 +106,9 @@ export default class Canvas implements ISubscriber {
 					const x: number = e.clientX - e.target.offsetLeft;
 					const y: number = e.clientY - e.target.offsetTop;
 					this.activeElement.elementNode.handleMousePressed(x, y);
+
+					const elementMoving = this.elementList.splice(this.elementList.indexOf(this.activeElement), 1)[0];
+					this.elementList.unshift(elementMoving);
 				}
 			}
 		});
@@ -146,9 +149,13 @@ export default class Canvas implements ISubscriber {
 	}
 
 	private drawCanvas(): void {
-		this.elementList.forEach((element: ElementView) => {
+
+		for (let i = this.elementList.length - 1; i >= 0; i--) {
+			this.elementList[i].draw();
+		}
+		/*this.elementList.forEach((element: ElementView) => {
 			element.draw();
-		});
+		});*/
 	}
 
 	private clearCanvas(): void {
