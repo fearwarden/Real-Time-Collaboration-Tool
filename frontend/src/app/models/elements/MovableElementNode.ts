@@ -14,12 +14,14 @@ export default abstract class MovableElementNode extends ElementNode {
 
   public handleMouseMove(x: number, y: number) {
     if (!this.mousePressed) return;
+    // Distance between mouse and the image startpoint
     super.x = x - this.distanceX;
     super.y = y - this.distanceY;
     super.notifySubscribers(this);
   }
 
   public handleMousePressed(x: number, y: number) {
+    // Distance between mouse and the cavnas
     this.distanceX = x - super.x;
     this.distanceY = y - super.y;
     this.mousePressed = true;

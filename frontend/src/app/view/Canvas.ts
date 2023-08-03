@@ -36,7 +36,6 @@ export default class Canvas implements ISubscriber {
   }
   update(notification: any): void {
     if (notification instanceof ElementNode) {
-      console.log(notification);
       this.redrawCanvas();
     }
   }
