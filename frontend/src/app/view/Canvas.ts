@@ -81,10 +81,12 @@ export default class Canvas implements ISubscriber {
             CoordinateUtils.checkCoordinatesInElement({ x, y }, elementGeometry)
           ) {
             this.activeElement = element;
+            this.enableCursor();
             return;
           }
         }
         this.activeElement = null;
+        this.disableCursor();
       }
     });
   }
@@ -154,6 +156,14 @@ export default class Canvas implements ISubscriber {
 
   private clearCanvas(): void {
     this._ctx?.clearRect(0, 0, this.width, this.height);
+  }
+
+  private enableCursor() {
+    this.canvasElement.style.cursor = "pointer";
+  }
+
+  private disableCursor() {
+    this.canvasElement.style.cursor = "auto";
   }
 
   public get canvasElement(): HTMLCanvasElement {
