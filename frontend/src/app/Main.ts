@@ -65,6 +65,7 @@ export default class Main {
 	}
 	public set canvas(value: HTMLCanvasElement) {
 		this._canvas = new Canvas(value);
+		this._canvas.start();
 	}
 
 	public get strategyModel(): Strategy {

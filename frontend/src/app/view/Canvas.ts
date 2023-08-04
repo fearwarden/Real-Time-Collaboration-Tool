@@ -34,9 +34,6 @@ export default class Canvas implements ISubscriber {
 		this.setupElementDragging();
 	}
 	update(notification: any): void {
-		if (notification instanceof ElementNode) {
-			this.redrawCanvas();
-		}
 	}
 
 	public drawDot(x: number, y: number) {
@@ -142,10 +139,11 @@ export default class Canvas implements ISubscriber {
 	public drawImage(image: HTMLImageElement, x: number, y: number): void {
 		this._ctx.drawImage(image, x, y);
 	}
-	public redrawCanvas() {
+	public redrawCanvas = () => {
 		// Clear whole canvas in order to redraw the whole context
 		this.clearCanvas();
 		this.drawCanvas();
+		requestAnimationFrame(this.redrawCanvas);
 	}
 
 	private drawCanvas(): void {
@@ -153,9 +151,10 @@ export default class Canvas implements ISubscriber {
 		for (let i = this.elementList.length - 1; i >= 0; i--) {
 			this.elementList[i].draw();
 		}
-		/*this.elementList.forEach((element: ElementView) => {
-			element.draw();
-		});*/
+	}
+
+	public start(): void {
+		requestAnimationFrame(this.redrawCanvas);
 	}
 
 	private clearCanvas(): void {
