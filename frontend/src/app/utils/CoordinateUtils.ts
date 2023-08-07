@@ -22,17 +22,17 @@ export default class CoordinateUtils {
     );
   }
 
-  public static screenToWorld(point: Point, offset: CameraOffset): Point {
+  public static screenToWorld(point: Point, offset: CameraOffset, zoom: number): Point {
     return {
-      x: point.x + offset.x,
-      y: point.y + offset.y
+      x: (point.x + offset.x) / zoom,
+      y: (point.y + offset.y) / zoom
     }
   }
 
-  public static worldToScreen(point: Point, offset: CameraOffset): Point {
+  public static worldToScreen(point: Point, offset: CameraOffset, zoom: number): Point {
     return {
-      x: point.x - offset.x,
-      y: point.y - offset.y
+      x: (point.x - offset.x) * zoom,
+      y: (point.y - offset.y) * zoom
     }
   }
 

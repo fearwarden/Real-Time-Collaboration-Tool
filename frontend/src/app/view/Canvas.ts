@@ -18,6 +18,7 @@ export default class Canvas implements ISubscriber {
 	private _activeElement: ElementView | null;
 
 	private _cameraOffset: Point;
+	private _cameraZoom: number;
 
 	private panningStart: Point;
 	private isPanning: boolean;
@@ -43,10 +44,13 @@ export default class Canvas implements ISubscriber {
 		this.panningStart = { x: 0, y: 0 }
 		this.isPanning = false;
 
+		this._cameraZoom = 1;
+
 		this.setupMousePositionTracker();
 		this.setupHoveredElementTracker();
 		this.setupElementDragging();
 		this.setupPanning();
+		this.setupZoom();
 	}
 	update(notification: any): void {
 	}
@@ -84,15 +88,15 @@ export default class Canvas implements ISubscriber {
 		this.canvasElement.addEventListener("mousemove", (e) => {
 			if (isMouseDown) return;
 			if (e.target instanceof HTMLCanvasElement) {
-				/*const x: number = e.clientX - e.target.offsetLeft - this.cameraOffset.x;
-				const y: number = e.clientY - e.target.offsetTop - this.cameraOffset.y;*/
+				const x: number = (e.clientX - e.target.offsetLeft - this.cameraOffset.x) / this.cameraZoom;
+				const y: number = (e.clientY - e.target.offsetTop - this.cameraOffset.y) / this.cameraZoom;
 
-				const screenCoords = CoordinateUtils.worldToScreen(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset);
+				//const screenCoords = CoordinateUtils.screenToWorld(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset, this.cameraZoom);
 
 				for (let element of this.elementList) {
 					const elementGeometry = element.getGeometry();
 					if (
-						CoordinateUtils.checkCoordinatesInElement({ x: screenCoords.x, y: screenCoords.y }, elementGeometry)
+						CoordinateUtils.checkCoordinatesInElement({ x/*: screenCoords.x*/, y/*: screenCoords.y*/ }, elementGeometry)
 					) {
 						this.activeElement = element;
 						this.enableCursor();
@@ -109,7 +113,12 @@ export default class Canvas implements ISubscriber {
 		this.canvasElement.addEventListener("mouseup", () => {
 			isMouseDown = false;
 		})
-
+		/*this.canvasElement.addEventListener("click", (e) => {
+			console.log("Mouse screen coords: " + JSON.stringify(CoordinateUtils.getCanvasMousePosition(e)));
+			console.log("World coords: " + JSON.stringify(CoordinateUtils.screenToWorld(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset, this.cameraZoom)));
+			console.log("Offset", JSON.stringify(this.cameraOffset))
+			console.log(this.elementList)
+		})*/
 	}
 
 	private setupElementDragging() {
@@ -120,7 +129,7 @@ export default class Canvas implements ISubscriber {
 					/*const x: number = e.clientX - e.target.offsetLeft;
 					const y: number = e.clientY - e.target.offsetTop;*/
 
-					const worldCoorindates = CoordinateUtils.screenToWorld(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset);
+					const worldCoorindates = CoordinateUtils.screenToWorld(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset, this.cameraZoom);
 
 					this.activeElement.elementNode.handleMousePressed(worldCoorindates.x, worldCoorindates.y);
 
@@ -137,7 +146,7 @@ export default class Canvas implements ISubscriber {
 					/*const x: number = e.clientX - e.target.offsetLeft;
 					const y: number = e.clientY - e.target.offsetTop;*/
 
-					const worldCoorindates = CoordinateUtils.screenToWorld(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset);
+					const worldCoorindates = CoordinateUtils.screenToWorld(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset, this.cameraZoom);
 
 					this.activeElement.elementNode.handleMouseMove(worldCoorindates.x, worldCoorindates.y);
 					// this.activeElement.elementNode.handleMouseMove(x, y);
@@ -176,6 +185,28 @@ export default class Canvas implements ISubscriber {
 		})
 	}
 
+	private setupZoom() {
+		const ZOOM_SENSITIVITY = 0.002;
+		const MAX_ZOOM = 2;
+		const MIN_ZOOM = 1;
+
+		this.canvasElement.addEventListener("wheel", (e) => {
+			const mouseWorldBeforeZoom = CoordinateUtils.screenToWorld(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset, this.cameraZoom);
+
+			this.cameraZoom -= e.deltaY * ZOOM_SENSITIVITY;
+
+			this.cameraZoom = Math.min(this.cameraZoom, MAX_ZOOM);
+			this.cameraZoom = Math.max(this.cameraZoom, MIN_ZOOM);
+
+			const mouseWorldAfterZoom = CoordinateUtils.screenToWorld(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset, this.cameraZoom);
+
+			/*this.cameraOffset.x += mouseWorldBeforeZoom.x - mouseWorldAfterZoom.x;
+			this.cameraOffset.y += mouseWorldBeforeZoom.y - mouseWorldAfterZoom.y;*/
+
+			console.log(this.cameraOffset, this.elementList)
+		})
+	}
+
 	private fixCanvasScalling() {
 		this.width = this.canvasElement.clientWidth;
 		this.height = this.canvasElement.clientHeight;
@@ -195,6 +226,7 @@ export default class Canvas implements ISubscriber {
 		this._ctx.setTransform(1, 0, 0, 1, 0, 0);
 		this.fixCanvasScalling();
 		this._ctx.translate(this.cameraOffset.x, this.cameraOffset.y);
+		this._ctx.scale(this.cameraZoom, this.cameraZoom);
 		this.clearCanvas();
 		this.drawCanvas();
 		requestAnimationFrame(this.redrawCanvas);
@@ -264,5 +296,11 @@ export default class Canvas implements ISubscriber {
 	}
 	public set cameraOffset(value: Point) {
 		this._cameraOffset = value;
+	}
+	public get cameraZoom(): number {
+		return this._cameraZoom;
+	}
+	public set cameraZoom(value: number) {
+		this._cameraZoom = value;
 	}
 }
