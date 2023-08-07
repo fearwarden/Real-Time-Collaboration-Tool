@@ -1,11 +1,10 @@
 import Main from "../Main";
 import ElementNode from "../models/elements/ElementNode";
 import MovableElementNode from "../models/elements/MovableElementNode";
-import CoordinateUtils from "../utils/CoordinateUtils";
+import CoordinateUtils, { Point } from "../utils/CoordinateUtils";
 import ISubscriber from "../utils/observer/ISubscriber";
 import ElementView from "./ElementView";
 import MapView from "./MapView";
-
 
 export default class Canvas implements ISubscriber {
 	private _canvasElement: HTMLCanvasElement;
@@ -17,6 +16,11 @@ export default class Canvas implements ISubscriber {
 
 	private _elementList: ElementView[];
 	private _activeElement: ElementView | null;
+
+	private _cameraOffset: Point;
+
+	private panningStart: Point;
+	private isPanning: boolean;
 
 	private _mapView: MapView;
 
@@ -35,9 +39,14 @@ export default class Canvas implements ISubscriber {
 
 		this.fixCanvasScalling();
 
+		this._cameraOffset = { x: 0, y: 0 }
+		this.panningStart = { x: 0, y: 0 }
+		this.isPanning = false;
+
 		this.setupMousePositionTracker();
 		this.setupHoveredElementTracker();
 		this.setupElementDragging();
+		this.setupPanning();
 	}
 	update(notification: any): void {
 	}
@@ -75,13 +84,15 @@ export default class Canvas implements ISubscriber {
 		this.canvasElement.addEventListener("mousemove", (e) => {
 			if (isMouseDown) return;
 			if (e.target instanceof HTMLCanvasElement) {
-				const x: number = e.clientX - e.target.offsetLeft;
-				const y: number = e.clientY - e.target.offsetTop;
+				/*const x: number = e.clientX - e.target.offsetLeft - this.cameraOffset.x;
+				const y: number = e.clientY - e.target.offsetTop - this.cameraOffset.y;*/
+
+				const screenCoords = CoordinateUtils.worldToScreen(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset);
 
 				for (let element of this.elementList) {
 					const elementGeometry = element.getGeometry();
 					if (
-						CoordinateUtils.checkCoordinatesInElement({ x, y }, elementGeometry)
+						CoordinateUtils.checkCoordinatesInElement({ x: screenCoords.x, y: screenCoords.y }, elementGeometry)
 					) {
 						this.activeElement = element;
 						this.enableCursor();
@@ -106,9 +117,12 @@ export default class Canvas implements ISubscriber {
 		this.canvasElement.addEventListener("mousedown", (e) => {
 			if (this.activeElement?.elementNode instanceof MovableElementNode) {
 				if (e.target instanceof HTMLCanvasElement) {
-					const x: number = e.clientX - e.target.offsetLeft;
-					const y: number = e.clientY - e.target.offsetTop;
-					this.activeElement.elementNode.handleMousePressed(x, y);
+					/*const x: number = e.clientX - e.target.offsetLeft;
+					const y: number = e.clientY - e.target.offsetTop;*/
+
+					const worldCoorindates = CoordinateUtils.screenToWorld(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset);
+
+					this.activeElement.elementNode.handleMousePressed(worldCoorindates.x, worldCoorindates.y);
 
 					const elementMoving = this.elementList.splice(this.elementList.indexOf(this.activeElement), 1)[0];
 					this.elementList.unshift(elementMoving);
@@ -120,9 +134,13 @@ export default class Canvas implements ISubscriber {
 		this.canvasElement.addEventListener("mousemove", (e) => {
 			if (this.activeElement?.elementNode instanceof MovableElementNode) {
 				if (e.target instanceof HTMLCanvasElement) {
-					const x: number = e.clientX - e.target.offsetLeft;
-					const y: number = e.clientY - e.target.offsetTop;
-					this.activeElement.elementNode.handleMouseMove(x, y);
+					/*const x: number = e.clientX - e.target.offsetLeft;
+					const y: number = e.clientY - e.target.offsetTop;*/
+
+					const worldCoorindates = CoordinateUtils.screenToWorld(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset);
+
+					this.activeElement.elementNode.handleMouseMove(worldCoorindates.x, worldCoorindates.y);
+					// this.activeElement.elementNode.handleMouseMove(x, y);
 				}
 			}
 		});
@@ -133,6 +151,29 @@ export default class Canvas implements ISubscriber {
 				this.activeElement.elementNode.handleMouseReleased();
 			}
 		});
+	}
+
+	private setupPanning() {
+		this.canvasElement.addEventListener("mousedown", (e) => {
+			const mousePosition = CoordinateUtils.getCanvasMousePosition(e);
+			this.panningStart = { x: mousePosition.x - this.cameraOffset.x, y: mousePosition.y - this.cameraOffset.y };
+			this.isPanning = true;
+		})
+
+		this.canvasElement.addEventListener("mouseup", (e) => {
+			this.isPanning = false;
+		})
+
+		this.canvasElement.addEventListener("mouseleave", (e) => {
+			this.isPanning = false;
+		})
+
+		this.canvasElement.addEventListener("mousemove", (e) => {
+			if (!this.isPanning || this.activeElement !== null) return;
+			const mousePosition = CoordinateUtils.getCanvasMousePosition(e);
+			this.cameraOffset.x = mousePosition.x - this.panningStart.x;
+			this.cameraOffset.y = mousePosition.y - this.panningStart.y;
+		})
 	}
 
 	private fixCanvasScalling() {
@@ -151,6 +192,9 @@ export default class Canvas implements ISubscriber {
 	}
 	public redrawCanvas = () => {
 		// Clear whole canvas in order to redraw the whole context
+		this._ctx.setTransform(1, 0, 0, 1, 0, 0);
+		this.fixCanvasScalling();
+		this._ctx.translate(this.cameraOffset.x, this.cameraOffset.y);
 		this.clearCanvas();
 		this.drawCanvas();
 		requestAnimationFrame(this.redrawCanvas);
@@ -164,7 +208,7 @@ export default class Canvas implements ISubscriber {
 	}
 
 	public start(): void {
-		requestAnimationFrame(this.redrawCanvas);
+		this.redrawCanvas();
 	}
 
 	private clearCanvas(): void {
@@ -214,5 +258,11 @@ export default class Canvas implements ISubscriber {
 	}
 	public set mapView(value: MapView) {
 		this._mapView = value;
+	}
+	public get cameraOffset(): Point {
+		return this._cameraOffset;
+	}
+	public set cameraOffset(value: Point) {
+		this._cameraOffset = value;
 	}
 }
