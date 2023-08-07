@@ -4,6 +4,8 @@ import MovableElementNode from "../models/elements/MovableElementNode";
 import CoordinateUtils from "../utils/CoordinateUtils";
 import ISubscriber from "../utils/observer/ISubscriber";
 import ElementView from "./ElementView";
+import MapView from "./MapView";
+
 
 export default class Canvas implements ISubscriber {
 	private _canvasElement: HTMLCanvasElement;
@@ -16,6 +18,8 @@ export default class Canvas implements ISubscriber {
 	private _elementList: ElementView[];
 	private _activeElement: ElementView | null;
 
+	private _mapView: MapView;
+
 	//TODO: Add functionality to redraw the canvas when window changes size
 	constructor(canvas: HTMLCanvasElement) {
 		this._canvasElement = canvas;
@@ -26,6 +30,8 @@ export default class Canvas implements ISubscriber {
 
 		this._elementList = [];
 		this._activeElement = null;
+
+		this._mapView = new MapView();
 
 		this.fixCanvasScalling();
 
@@ -136,7 +142,11 @@ export default class Canvas implements ISubscriber {
 		this.canvasElement.height = this.height;
 	}
 
-	public drawImage(image: HTMLImageElement, x: number, y: number): void {
+	public drawImage(image: HTMLImageElement, x: number, y: number, width: number = -1, height: number = -1): void {
+		if (width > 0 && height > 0) {
+			this._ctx.drawImage(image, x, y, width, height);
+			return;
+		}
 		this._ctx.drawImage(image, x, y);
 	}
 	public redrawCanvas = () => {
@@ -147,7 +157,7 @@ export default class Canvas implements ISubscriber {
 	}
 
 	private drawCanvas(): void {
-
+		this.mapView.loadMap();
 		for (let i = this.elementList.length - 1; i >= 0; i--) {
 			this.elementList[i].draw();
 		}
@@ -198,5 +208,11 @@ export default class Canvas implements ISubscriber {
 	}
 	private set activeElement(value: ElementView | null) {
 		this._activeElement = value;
+	}
+	public get mapView(): MapView {
+		return this._mapView;
+	}
+	public set mapView(value: MapView) {
+		this._mapView = value;
 	}
 }
