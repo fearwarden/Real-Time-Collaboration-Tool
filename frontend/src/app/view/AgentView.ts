@@ -2,6 +2,7 @@ import Main from "../Main";
 import AgentFactory from "../content/agents/AgentFactory";
 import AgentNode from "../models/AgentNode";
 import ElementNode, { Geometry } from "../models/elements/ElementNode";
+import CoordinateUtils, { Point } from "../utils/CoordinateUtils";
 import ElementView from "./ElementView";
 
 export default class AgentView implements ElementView {
@@ -10,11 +11,20 @@ export default class AgentView implements ElementView {
   private agentImage: HTMLImageElement;
 
   constructor(agentName: string) {
-    // TODO: change the coordinates
+
+    //Spawn agent in the center of the screen
+
+    const screenCoords: Point = {
+      x: Main.getInstance().canvas!.width / 2,
+      y: Main.getInstance().canvas!.height / 2
+    }
+
+    const worldCoords = CoordinateUtils.worldToScreen(screenCoords, Main.getInstance().canvas!.cameraOffset, Main.getInstance().canvas!.cameraZoom);
+
     this._agentNode = new AgentNode(
       AgentFactory.createAgent(agentName),
-      0,
-      0,
+      worldCoords.x,
+      worldCoords.y,
       20,
       20
     );
