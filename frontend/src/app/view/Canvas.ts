@@ -2,6 +2,7 @@ import Main from "../Main";
 import ElementNode from "../models/elements/ElementNode";
 import MovableElementNode from "../models/elements/MovableElementNode";
 import CoordinateUtils, { Point } from "../utils/CoordinateUtils";
+import MouseTracker from "../utils/MouseTracker";
 import ISubscriber from "../utils/observer/ISubscriber";
 import ElementView from "./ElementView";
 import MapView from "./MapView";
@@ -186,9 +187,22 @@ export default class Canvas implements ISubscriber {
 		const MIN_ZOOM = 1;
 
 		this.canvasElement.addEventListener("wheel", (e) => {
+
+			const prevMouseWorldCoords = CoordinateUtils.worldToScreen(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset, this.cameraZoom);
+
 			this.cameraZoom -= e.deltaY * ZOOM_SENSITIVITY;
 			this.cameraZoom = Math.min(this.cameraZoom, MAX_ZOOM);
 			this.cameraZoom = Math.max(this.cameraZoom, MIN_ZOOM);
+
+			const postMouseWorldCoords = CoordinateUtils.worldToScreen(CoordinateUtils.getCanvasMousePosition(e), this.cameraOffset, this.cameraZoom);
+
+			if (this.cameraZoom === 1) {
+				this.cameraOffset = { x: 0, y: 0 };
+				return;
+			}
+
+			this.cameraOffset.x += (prevMouseWorldCoords.x - postMouseWorldCoords.x);
+			this.cameraOffset.y += (prevMouseWorldCoords.y - postMouseWorldCoords.y);
 		})
 	}
 
