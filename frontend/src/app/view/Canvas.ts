@@ -176,8 +176,8 @@ export default class Canvas implements ISubscriber {
 			const mousePosition = CoordinateUtils.getCanvasMousePosition(e);
 			this.cameraOffset.x = mousePosition.x - this.panningStart.x;
 			this.cameraOffset.y = mousePosition.y - this.panningStart.y;
-			this.cameraOffset = { x: Math.min(this.cameraOffset.x, this.width * 0.65), y: Math.min(this.cameraOffset.y, this.height * 0.65) }
-			this.cameraOffset = { x: Math.max(this.cameraOffset.x, -this.width * 0.65), y: Math.max(this.cameraOffset.y, -this.height * 0.65) }
+			this.cameraOffset = { x: Math.min(this.cameraOffset.x, this.width * 1.5), y: Math.min(this.cameraOffset.y, this.height * 1.5) }
+			this.cameraOffset = { x: Math.max(this.cameraOffset.x, -this.width * 1.5), y: Math.max(this.cameraOffset.y, -this.height * 1.5) }
 		})
 	}
 
