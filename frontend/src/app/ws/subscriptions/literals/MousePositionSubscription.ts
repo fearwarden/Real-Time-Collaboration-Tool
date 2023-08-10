@@ -1,5 +1,5 @@
 import Main from "../../../Main";
-import AbstractSubscription from "../AbstractSubscription";
+import ISubscription from "../ISubscription";
 
 export interface MousePosition {
     userId: string,
@@ -7,14 +7,19 @@ export interface MousePosition {
     y: number,
 }
 
-export default class MousePositionSubscription extends AbstractSubscription {
+export default class MousePositionSubscription implements ISubscription {
 
-    constructor() {
-        super("/topic/strategies/mouse-position", (message: any) => {
-            const data: MousePosition = JSON.parse(message.body);
-            if(data.userId === Main.getInstance().userId) return;
-            // Keep the dot within the canvas boundaries
-            Main.getInstance().canvas!.drawDot(data.x, data.y);
-        });
+    constructor() { }
+
+    get topic(): string {
+        return "/topic/strategies/mouse-position"
     }
+    callback(message: any): void {
+        const data: MousePosition = JSON.parse(message.body);
+        if (data.userId === Main.getInstance().userId) return;
+        // Keep the dot within the canvas boundaries
+        //Main.getInstance().canvas!.drawDot(data.x, data.y);
+    }
+
+
 }

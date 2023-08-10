@@ -1,39 +1,39 @@
 import { CompatClient, Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
-import AbstractSubscription from "./subscriptions/AbstractSubscription";
+import AbstractSubscription from "./subscriptions/ISubscription";
 import Main from "../Main";
 
 export default class StompClient {
 
     private _stompClient: CompatClient | null = null;
-    
+
     private stompInitialized: boolean = false;
-    
+
     public connect(): void {
         var socket = new SockJS('http://localhost:8080/ws');
         this.stompClient = Stomp.over(socket);
-        if(this._stompClient == null) {
+        if (this._stompClient == null) {
             throw new Error("Stomp client not initialized.");
         }
-        this.stompClient.debug = () => {};
+        this.stompClient.debug = () => { };
 
         const subscriptions: AbstractSubscription[] = Main.getInstance().subscriptionManager.getSubscriptions();
 
         const subMap = new Map<string, Function[]>();
 
-        for(let i = 0; i < subscriptions.length; i++) {
+        for (let i = 0; i < subscriptions.length; i++) {
             const sub = subscriptions[i];
 
-            if(subMap.has(sub.getTopic)){
-                subMap.get(sub.getTopic)!.push(sub.callback);
+            if (subMap.has(sub.topic)) {
+                subMap.get(sub.topic)!.push(sub.callback);
             } else {
-                subMap.set(sub.getTopic, [sub.callback]);
+                subMap.set(sub.topic, [sub.callback]);
             }
         }
         this.stompClient.connect({}, (frame: any) => {
-            for(let key of subMap.keys()) {
+            for (let key of subMap.keys()) {
                 this.stompClient!.subscribe(key, (message: any) => {
-                    for(let callback of subMap.get(key)!) {
+                    for (let callback of subMap.get(key)!) {
                         callback(message);
                     }
                 });
@@ -43,12 +43,12 @@ export default class StompClient {
     }
 
     public disconnect(): void {
-        if(!this.stompClient || !this.stompInitialized) return;
+        if (!this.stompClient || !this.stompInitialized) return;
         this.stompClient.disconnect();
     }
 
     public send(endpoint: string, message: any): void {
-        if(!this.stompInitialized || this.stompClient == null) return;
+        if (!this.stompInitialized || this.stompClient == null) return;
         this.stompClient.send(endpoint, {}, JSON.stringify(message));
     }
 

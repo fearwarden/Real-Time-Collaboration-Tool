@@ -1,9 +1,9 @@
-import AbstractSubscription from "./AbstractSubscription";
+import AbstractSubscription from "./ISubscription";
 import MousePositionSubscription from "./literals/MousePositionSubscription";
 
 export default class SubscriptionManager {
     private _mousePositionSubscription: MousePositionSubscription;
-    
+
 
     constructor() {
         this._mousePositionSubscription = new MousePositionSubscription();

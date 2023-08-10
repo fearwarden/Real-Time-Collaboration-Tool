@@ -1,5 +1,5 @@
-export default abstract class AbstractSubscription {
-    private _topic: string;
+export default interface ISubscription {
+    /*private _topic: string;
 
     private _callback: (message: any) => void;
 
@@ -22,6 +22,9 @@ export default abstract class AbstractSubscription {
     }
     public set topic(value: string) {
         this._topic = value;
-    }
+    }*/
+
+    get topic(): string;
+    callback(message: any): void;
 
 }
