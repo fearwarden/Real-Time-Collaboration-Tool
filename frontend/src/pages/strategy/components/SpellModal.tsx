@@ -1,4 +1,5 @@
 import React from "react";
+import Main from "../../../app/Main";
 import AbstractSpell from "../../../app/content/spells/AbstractSpell";
 
 export interface SpellModalProps {
@@ -13,7 +14,16 @@ function SpellModal(props: SpellModalProps) {
         props.spells.map((spell: AbstractSpell) => {
           return (
             <div className="">
-              <img src={spell.image} className="w-1/2 h-auto"></img>
+              <img
+                src={spell.image}
+                className="w-1/2 h-auto cursor-pointer"
+                key={`agent-thumb-${spell.name}`}
+                onClick={
+                  Main.getInstance().actionManager.addSpellAction.doAction
+                }
+                data-spellname={spell.name}
+                data-agentname={spell.agentName}
+              ></img>
             </div>
           );
         })}
