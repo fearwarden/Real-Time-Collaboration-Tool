@@ -96,4 +96,22 @@ export default class SpellFactory {
 
     return SpellFactory.spellMap[agentName];
   }
+
+  static getSpell(agentName: string, spellName: string): AbstractSpell {
+    const spellList = SpellFactory.spellMap[agentName];
+
+    if (!spellList) {
+      throw new Error(`No spells found for agent: ${agentName}`);
+    }
+
+    const spellofAgent = spellList.find((spell) => spell.name === spellName);
+
+    if (!spellofAgent) {
+      throw new Error(
+        `No spell found with name: ${spellName} for agent: ${agentName}`
+      );
+    }
+
+    return spellofAgent;
+  }
 }
