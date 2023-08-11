@@ -15,13 +15,15 @@ export default class AddAgentCommand implements ICommand {
     Main.getInstance().canvas?.redrawCanvas();
   }
   undoCommand(): void {
-    Main.getInstance().canvas?.elementList[
+    const element = Main.getInstance().canvas?.elementList[
       Main.getInstance().canvas!.elementList.indexOf(this.agent)
-    ].elementNode.removeSubscriber(Main.getInstance().canvas!);
+    ];
+    if (!element) return;
+    element.elementNode.removeSubscriber(Main.getInstance().canvas!);
     Main.getInstance().canvas?.elementList.splice(
       Main.getInstance().canvas!.elementList.indexOf(this.agent),
       1
     );
-    Main.getInstance().canvas?.redrawCanvas();
+    //Main.getInstance().canvas?.redrawCanvas();
   }
 }

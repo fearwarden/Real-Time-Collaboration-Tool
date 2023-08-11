@@ -13,7 +13,7 @@ function SpellModal(props: SpellModalProps) {
         props.spells &&
         props.spells.map((spell: AbstractSpell) => {
           return (
-            <div className="">
+            <div className="" key={`div-${spell.name}`}>
               <img
                 src={spell.image}
                 className="w-1/2 h-auto cursor-pointer"

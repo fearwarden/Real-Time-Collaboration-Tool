@@ -28,7 +28,8 @@ export default abstract class AbstractMouseAction {
             if (!(e.target instanceof htmlElementType)) return
             try {
                 this.onMouseUp(e);
-            } catch (err) { }
+            } catch (err) {
+            }
         });
         window.addEventListener("wheel", (e) => {
             if (!(e.target instanceof htmlElementType)) return

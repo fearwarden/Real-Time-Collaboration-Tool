@@ -1,9 +1,9 @@
 import Main from "../Main";
 import SideMenuView from "../view/SideMenuView";
-import AbstractCommand from "./ICommand";
+import ICommand from "./ICommand";
 
 export default class CommandManager {
-  private commands: AbstractCommand[];
+  public commands: ICommand[];
   private currentCommand: number = -1;
   private _isUndoDisabled: boolean;
   private _isRedoDisabled: boolean;
@@ -14,11 +14,8 @@ export default class CommandManager {
     this._isUndoDisabled = true;
   }
 
-  public addCommand(command: AbstractCommand): void {
-    for (let i = this.currentCommand + 1; i < this.commands.length; i++) {
-      //Deletes every command to the right of the pointer
-      this.commands.splice(this.currentCommand, 1);
-    }
+  public addCommand(command: ICommand): void {
+    this.commands.splice(this.currentCommand + 1);
 
     this.commands.push(command);
     this.doCommand();
@@ -38,6 +35,7 @@ export default class CommandManager {
   }
 
   public undoCommand() {
+    if (this.currentCommand < 0 || this.currentCommand > this.commands.length - 1) return;
     this.commands[this.currentCommand].undoCommand();
     this.currentCommand--;
 
