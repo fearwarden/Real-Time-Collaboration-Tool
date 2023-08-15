@@ -10,6 +10,16 @@ export default class DrawingView {
         this.points = Main.getInstance().strategyModel.drawingPoints;
     }
 
+    public startPenState() {
+        Main.getInstance().drawingStateManager.startPenState();
+        Main.getInstance().canvas.setDrawingCursor();
+    }
+
+    public startNullState() {
+        Main.getInstance().drawingStateManager.startNullState();
+        Main.getInstance().canvas.setDefaultCursor();
+    }
+
     public draw() {
         const canvas = Main.getInstance().canvas.canvasElement!;
         const ctx = canvas.getContext("2d")!;
@@ -37,5 +47,6 @@ export default class DrawingView {
             ctx.closePath();
         })
     }
+
 
 }

@@ -8,6 +8,7 @@ import AddSpellAction from "./literals/AddSpellAction";
 import RedoAction from "./literals/RedoAction";
 import UndoAction from "./literals/UndoAction";
 import DrawAction from "./literals/DrawAction";
+import StartPenStateAction from "./literals/StartPenStateAction";
 
 export default class ActionManager {
   private _addAgentAction: AddAgentAction;
@@ -20,6 +21,7 @@ export default class ActionManager {
   private _undoAction: UndoAction;
   private _redoAction: RedoAction;
   private _drawAction: DrawAction;
+  private _startPenStateAction: StartPenStateAction;
 
   constructor() {
     this._addAgentAction = new AddAgentAction();
@@ -32,6 +34,7 @@ export default class ActionManager {
     this._undoAction = new UndoAction();
     this._redoAction = new RedoAction();
     this._drawAction = new DrawAction();
+    this._startPenStateAction = new StartPenStateAction();
   }
 
   public get addAgentAction(): AddAgentAction {
@@ -63,5 +66,8 @@ export default class ActionManager {
   }
   public get drawAction(): DrawAction {
     return this._drawAction;
+  }
+  public get startPenStateAction(): StartPenStateAction {
+    return this._startPenStateAction;
   }
 }

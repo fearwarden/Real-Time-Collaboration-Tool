@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Main from "../../../app/Main";
 import SpellModal from "./SpellModal";
 import AbstractSpell from "../../../app/content/spells/AbstractSpell";
+import Pencil from "../../../assets/img/elements/pencil.svg";
 
 function SideMenu() {
   const [agents, setAgents] = useState(
@@ -87,6 +88,15 @@ function SideMenu() {
           >
             disabled
           </button>
+        </div>
+        <div>
+          <img
+            className="cursor-pointer"
+            onClick={
+              Main.getInstance().actionManager.startPenStateAction.doAction
+            }
+            src={Pencil}
+          ></img>
         </div>
       </div>
     </>

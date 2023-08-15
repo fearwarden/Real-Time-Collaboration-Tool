@@ -22,12 +22,12 @@ export default class SelectHoveredElementAction extends AbstractMouseAction {
                 CoordinateUtils.checkCoordinatesInElement({ x, y }, elementGeometry)
             ) {
                 canvas.activeElement = element;
-                this.enableCursor();
+                canvas.setPointerCursor();
                 return;
             }
         }
         canvas.activeElement = null;
-        this.disableCursor();
+        canvas.setDefaultCursor();
     }
     onMouseEnter(e: MouseEvent): void {
         throw new Error("Method not implemented.");
@@ -43,14 +43,6 @@ export default class SelectHoveredElementAction extends AbstractMouseAction {
     }
     onWheel(e: WheelEvent): void {
         throw new Error("Method not implemented.");
-    }
-
-    private enableCursor() {
-        Main.getInstance().canvas!.canvasElement.style.cursor = "pointer";
-    }
-
-    private disableCursor() {
-        Main.getInstance().canvas!.canvasElement.style.cursor = "auto";
     }
 
 }
