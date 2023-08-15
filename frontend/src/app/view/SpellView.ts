@@ -16,7 +16,7 @@ export default class SpellView implements ElementView {
       y: Main.getInstance().canvas!.height / 2,
     };
 
-    const worldCoords = CoordinateUtils.worldToScreen(
+    const worldCoords = CoordinateUtils.screenToWorld(
       screenCoords,
       Main.getInstance().canvas!.cameraOffset,
       Main.getInstance().canvas!.cameraZoom

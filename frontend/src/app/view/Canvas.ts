@@ -1,5 +1,6 @@
 import { Point } from "../utils/CoordinateUtils";
 import ISubscriber from "../utils/observer/ISubscriber";
+import DrawingView from "./DrawingView";
 import ElementView from "./ElementView";
 import MapView from "./MapView";
 
@@ -18,6 +19,7 @@ export default class Canvas implements ISubscriber {
   private _cameraZoom: number;
 
   private _mapView: MapView;
+  private _drawingView: DrawingView;
 
   private _ZOOM_SENSITIVITY = 0.002;
 
@@ -36,6 +38,7 @@ export default class Canvas implements ISubscriber {
     this._activeElement = null;
 
     this._mapView = new MapView();
+    this._drawingView = new DrawingView();
 
     this.fixCanvasScaling();
 
@@ -80,6 +83,7 @@ export default class Canvas implements ISubscriber {
     for (let i = this.elementList.length - 1; i >= 0; i--) {
       this.elementList[i].draw();
     }
+    this.drawingView.draw();
   }
 
   public start(): void {
@@ -147,6 +151,10 @@ export default class Canvas implements ISubscriber {
   public get MAX_ZOOM() {
     return this._MAX_ZOOM;
   }
+  public get drawingView(): DrawingView {
+    return this._drawingView;
+  }
 
-  update(notification: any): void {}
+
+  update(notification: any): void { }
 }

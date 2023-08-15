@@ -1,7 +1,7 @@
 export default abstract class AbstractDrawingState {
   private _color: string;
   private _thickness: number;
-  protected _cursor: string | null;
+  private _cursor: string | null;
 
   constructor(color: string, thickness: number, cursor: string) {
     this._color = color;
@@ -27,5 +27,8 @@ export default abstract class AbstractDrawingState {
   }
   public get cursor(): string | null {
     return this._cursor;
+  }
+  public set cursor(value: string | null) {
+    this._cursor = value;
   }
 }

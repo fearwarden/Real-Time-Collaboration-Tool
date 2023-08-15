@@ -1,40 +1,36 @@
 import AbstractDrawingState from "../AbstractDrawingState";
 import Pencil from "../../../../assets/img/elements/pencil.svg";
 import Main from "../../../Main";
+import DrawingPoint from "../../../models/DrawingPoint";
+import CoordinateUtils from "../../../utils/CoordinateUtils";
 
 export default class PenState extends AbstractDrawingState {
   private isDrawing: boolean;
+  private temp: DrawingPoint[];
   constructor() {
-    super("#FFFFFF", 1, Pencil);
+    super("#FFFFFF", 3, Pencil);
     this.isDrawing = false;
+    this.temp = [];
   }
 
   public onMouseDown(event: MouseEvent): void {
-    const canvas = Main.getInstance().canvas.canvasElement!;
-    const ctx = canvas.getContext("2d")!;
     this.isDrawing = true;
-    ctx.strokeStyle = this.color;
-    ctx.lineWidth = this.thickness;
-    ctx.lineCap = "round";
-    canvas.style.cursor = `url(${this.cursor}), auto`;
-    ctx.beginPath();
-    const mouseX: number = event.clientX - canvas.offsetLeft;
-    const mouseY: number = event.clientY - canvas.offsetTop;
-    ctx.moveTo(mouseX, mouseY);
+    this.temp = [];
+
   }
   public onMouseMove(event: MouseEvent): void {
     if (!this.isDrawing) return;
     const canvas = Main.getInstance().canvas.canvasElement!;
-    const ctx = canvas.getContext("2d")!;
     const mouseX: number = event.clientX - canvas.offsetLeft;
     const mouseY: number = event.clientY - canvas.offsetTop;
-    ctx.lineTo(mouseX, mouseY);
-    ctx.stroke();
+    const worldCoords = CoordinateUtils.screenToWorld({ x: mouseX, y: mouseY }, Main.getInstance().canvas.cameraOffset, Main.getInstance().canvas.cameraZoom);
+    if (Main.getInstance().strategyModel.drawingPoints.indexOf(this.temp) !== -1) {
+      Main.getInstance().strategyModel.drawingPoints.splice(Main.getInstance().strategyModel.drawingPoints.indexOf(this.temp), 1);
+    }
+    this.temp.push(new DrawingPoint(worldCoords.x, worldCoords.y, this.thickness, this.color));
+    Main.getInstance().strategyModel.drawingPoints.push(this.temp);
   }
   public onMouseUp(): void {
     this.isDrawing = false;
-    const canvas = Main.getInstance().canvas.canvasElement!;
-    const ctx = canvas.getContext("2d")!;
-    ctx.closePath();
   }
 }

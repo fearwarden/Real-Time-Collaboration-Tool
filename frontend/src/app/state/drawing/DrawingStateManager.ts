@@ -8,7 +8,7 @@ export default class DrawingStateManager {
 
   constructor() {
     this._penState = new PenState();
-    this._currentState = this._penState;
+    this._currentState = null;
   }
 
   public get currentState(): AbstractDrawingState | null {

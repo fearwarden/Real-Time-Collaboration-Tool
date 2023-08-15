@@ -19,7 +19,7 @@ export default class AgentView implements ElementView {
       y: Main.getInstance().canvas!.height / 2
     }
 
-    const worldCoords = CoordinateUtils.worldToScreen(screenCoords, Main.getInstance().canvas!.cameraOffset, Main.getInstance().canvas!.cameraZoom);
+    const worldCoords = CoordinateUtils.screenToWorld(screenCoords, Main.getInstance().canvas!.cameraOffset, Main.getInstance().canvas!.cameraZoom);
 
     this._agentNode = new AgentNode(
       AgentFactory.createAgent(agentName),

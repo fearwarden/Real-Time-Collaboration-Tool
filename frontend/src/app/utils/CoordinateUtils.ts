@@ -24,15 +24,15 @@ export default class CoordinateUtils {
 
   public static screenToWorld(point: Point, offset: CameraOffset, zoom: number): Point {
     return {
-      x: (point.x + offset.x) / zoom,
-      y: (point.y + offset.y) / zoom
+      x: (point.x - offset.x) / zoom,
+      y: (point.y - offset.y) / zoom
     }
   }
 
   public static worldToScreen(point: Point, offset: CameraOffset, zoom: number): Point {
     return {
-      x: (point.x - offset.x) * zoom,
-      y: (point.y - offset.y) * zoom
+      x: (point.x + offset.x) * zoom,
+      y: (point.y + offset.y) * zoom
     }
   }
 
@@ -43,5 +43,4 @@ export default class CoordinateUtils {
       y: e.clientY - e.target.offsetTop
     }
   }
-
 }
