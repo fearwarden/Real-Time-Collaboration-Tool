@@ -2,6 +2,7 @@ import CommandManager from "./commands/CommandManager";
 import AgentManager from "./content/agents/AgentManager";
 import ActionManager from "./controller/actions/ActionManager";
 import Strategy from "./models/Strategy";
+import DrawingStateManager from "./state/drawing/DrawingStateManager";
 import Canvas from "./view/Canvas";
 import SideMenuView, { SideMenuElementes } from "./view/SideMenuView";
 import StompClient from "./ws/StompClient";
@@ -29,6 +30,8 @@ export default class Main {
 
   private _sideMenuView: SideMenuView | null;
 
+  private _drawingStateManager: DrawingStateManager;
+
   private constructor() {
     this._subscriptionManager = new SubscriptionManager();
     this._stompClient = new StompClient();
@@ -37,6 +40,7 @@ export default class Main {
     this._commandManager = new CommandManager();
     this._agentManager = new AgentManager();
     this._sideMenuView = null;
+    this._drawingStateManager = new DrawingStateManager();
   }
 
   public get subscriptionManager(): SubscriptionManager {
@@ -103,6 +107,9 @@ export default class Main {
   }
   public set sideMenuView(value: SideMenuElementes) {
     this._sideMenuView = new SideMenuView(value);
+  }
+  public get drawingStateManager(): DrawingStateManager {
+    return this._drawingStateManager;
   }
 
   public static getInstance(): Main {
