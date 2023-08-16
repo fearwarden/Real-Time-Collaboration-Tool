@@ -42,9 +42,12 @@ export default class CanvasPanningAction extends AbstractMouseAction {
       y: mousePosition.y - canvas.cameraOffset.y,
     };
     this.isPanning = true;
+    canvas.cursorHandler.setCustomPredefinedCursor("grab");
   }
   onMouseUp(e: MouseEvent): void {
+    const canvas = Main.getInstance().canvas!;
     this.isPanning = false;
+    canvas.cursorHandler.setDefaultCursor();
   }
   onWheel(e: WheelEvent): void {
     throw new Error("Method not implemented.");
