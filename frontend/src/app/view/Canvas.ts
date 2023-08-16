@@ -4,7 +4,7 @@ import ISubscriber from "../utils/observer/ISubscriber";
 import DrawingView from "./DrawingView";
 import ElementView from "./ElementView";
 import MapView from "./MapView";
-import Pencil from "../../assets/img/elements/pencil.svg";
+import CursorHanlder from "../utils/cursor/CursorHandler";
 
 export default class Canvas implements ISubscriber {
   private _canvasElement: HTMLCanvasElement;
@@ -28,6 +28,8 @@ export default class Canvas implements ISubscriber {
   private _MAX_ZOOM = 2;
   private _MIN_ZOOM = 1;
 
+  private _cursorHandler: CursorHanlder;
+
   //TODO: Add functionality to redraw the canvas when window changes size
   constructor(canvas: HTMLCanvasElement) {
     this._canvasElement = canvas;
@@ -47,6 +49,8 @@ export default class Canvas implements ISubscriber {
     this._cameraOffset = { x: 0, y: 0 };
 
     this._cameraZoom = 1;
+
+    this._cursorHandler = new CursorHanlder(this._canvasElement);
   }
 
   private fixCanvasScaling() {
@@ -94,18 +98,6 @@ export default class Canvas implements ISubscriber {
 
   private clearCanvas(): void {
     this._ctx?.clearRect(0, 0, this.width, this.height);
-  }
-
-  public setPointerCursor() {
-    this.canvasElement.style.cursor = "pointer";
-  }
-
-  public setDrawingCursor() {
-    this.canvasElement.style.cursor = `url(${Pencil}),auto`;
-  }
-
-  public setDefaultCursor() {
-    this.canvasElement.style.cursor = "auto";
   }
 
   public get canvasElement(): HTMLCanvasElement {
@@ -168,7 +160,9 @@ export default class Canvas implements ISubscriber {
   public get drawingView(): DrawingView {
     return this._drawingView;
   }
-
+  public get cursorHandler(): CursorHanlder {
+    return this._cursorHandler;
+  }
 
   update(notification: any): void { }
 }

@@ -12,12 +12,12 @@ export default class DrawingView {
 
     public startPenState() {
         Main.getInstance().drawingStateManager.startPenState();
-        Main.getInstance().canvas.setDrawingCursor();
+        Main.getInstance().canvas.cursorHandler.setDefaultCursor();
     }
 
     public startNullState() {
         Main.getInstance().drawingStateManager.startNullState();
-        Main.getInstance().canvas.setDefaultCursor();
+        Main.getInstance().canvas.cursorHandler.setDefaultCursor();
     }
 
     public draw() {

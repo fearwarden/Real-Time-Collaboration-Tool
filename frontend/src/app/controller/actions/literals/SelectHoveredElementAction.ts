@@ -22,12 +22,12 @@ export default class SelectHoveredElementAction extends AbstractMouseAction {
                 CoordinateUtils.checkCoordinatesInElement({ x, y }, elementGeometry)
             ) {
                 canvas.activeElement = element;
-                canvas.setPointerCursor();
+                canvas.cursorHandler.setCustomPredefinedCursor("pointer");
                 return;
             }
         }
         canvas.activeElement = null;
-        canvas.setDefaultCursor();
+        canvas.cursorHandler.setDefaultCursor();
     }
     onMouseEnter(e: MouseEvent): void {
         throw new Error("Method not implemented.");
