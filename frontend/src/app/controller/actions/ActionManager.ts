@@ -9,6 +9,7 @@ import RedoAction from "./literals/RedoAction";
 import UndoAction from "./literals/UndoAction";
 import DrawAction from "./literals/DrawAction";
 import StartPenStateAction from "./literals/StartPenStateAction";
+import StartEraserStateAction from "./literals/StartEraserStateAction";
 
 export default class ActionManager {
   private _addAgentAction: AddAgentAction;
@@ -22,6 +23,7 @@ export default class ActionManager {
   private _redoAction: RedoAction;
   private _drawAction: DrawAction;
   private _startPenStateAction: StartPenStateAction;
+  private _startEraserStateAction: StartEraserStateAction;
 
   constructor() {
     this._addAgentAction = new AddAgentAction();
@@ -35,6 +37,7 @@ export default class ActionManager {
     this._redoAction = new RedoAction();
     this._drawAction = new DrawAction();
     this._startPenStateAction = new StartPenStateAction();
+    this._startEraserStateAction = new StartEraserStateAction();
   }
 
   public get addAgentAction(): AddAgentAction {
@@ -69,5 +72,8 @@ export default class ActionManager {
   }
   public get startPenStateAction(): StartPenStateAction {
     return this._startPenStateAction;
+  }
+  public get startEraserStateAction(): StartEraserStateAction {
+    return this._startEraserStateAction;
   }
 }

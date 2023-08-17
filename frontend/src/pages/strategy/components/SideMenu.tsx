@@ -3,6 +3,7 @@ import Main from "../../../app/Main";
 import SpellModal from "./SpellModal";
 import AbstractSpell from "../../../app/content/spells/AbstractSpell";
 import Pencil from "../../../assets/img/elements/pencil.svg";
+import Eraser from "../../../assets/img/elements/eraser.svg";
 
 function SideMenu() {
   const [agents, setAgents] = useState(
@@ -96,6 +97,13 @@ function SideMenu() {
               Main.getInstance().actionManager.startPenStateAction.doAction
             }
             src={Pencil}
+          ></img>
+          <img
+            className="cursor-pointer"
+            onClick={
+              Main.getInstance().actionManager.startEraserStateAction.doAction
+            }
+            src={Eraser}
           ></img>
         </div>
       </div>
