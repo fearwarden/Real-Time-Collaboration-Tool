@@ -3,8 +3,9 @@ import Main from "../../../app/Main";
 import SpellModal from "./SpellModal";
 import AbstractSpell from "../../../app/content/spells/AbstractSpell";
 import Pencil from "../../../assets/img/elements/pencil.svg";
+import Eraser from "../../../assets/img/elements/eraser.svg";
 import Palette from "../../../assets/img/elements/palette.svg";
-import { Color, SketchPicker } from 'react-color';
+import { Color, SketchPicker } from "react-color";
 
 function SideMenu() {
 	const [agents, setAgents] = useState(
@@ -19,7 +20,7 @@ function SideMenu() {
 		r: 241,
 		g: 112,
 		b: 19,
-		a: 1
+		a: 1,
 	});
 	const undoButtonRef = useRef(null);
 	const redoButtonRef = useRef(null);
@@ -115,15 +116,36 @@ function SideMenu() {
 					<img
 						className="cursor-pointer"
 						onClick={
-							() => {
-								setShowColorPicker(!showColorPicker);
-							}
+							Main.getInstance().actionManager.startEraserStateAction.doAction
 						}
+						src={Eraser}
+					></img>
+					<img
+						className="cursor-pointer"
+						onClick={() => {
+							setShowColorPicker(!showColorPicker);
+						}}
 						src={Palette}
 					></img>
 				</div>
 				<div className="absolute">
-					{showColorPicker && <SketchPicker color={color} onChange={onColorChange}></SketchPicker>}
+					{showColorPicker && (
+						<>
+							<div style={{
+								position: 'fixed',
+								top: '0px',
+								right: '0px',
+								bottom: '0px',
+								left: '0px',
+							}} onClick={() => {
+								setShowColorPicker(false);
+							}} />
+							<SketchPicker
+								color={color}
+								onChange={onColorChange}
+							></SketchPicker>
+						</>
+					)}
 				</div>
 			</div>
 		</>
