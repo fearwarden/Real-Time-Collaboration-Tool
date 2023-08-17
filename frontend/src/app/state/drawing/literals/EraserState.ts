@@ -46,6 +46,14 @@ export default class EraserState extends AbstractDrawingState {
     this._isErasing = false;
   }
 
+  /**
+   * Determines if the given mouse position intersects with any line segments.
+   *
+   * @param mouseX - The x-coordinate of the mouse position (transformed from the screen to the world).
+   * @param mouseY - The y-coordinate of the mouse position (transformed from the screen to the world).
+   *
+   * @returns The index of the intersected line within the drawingPoints list, or -1 if no intersection is found.
+   */
   private findIntersectedLine(mouseX: number, mouseY: number): number {
     const drawingPoints = Main.getInstance().strategyModel.drawingPoints;
 
