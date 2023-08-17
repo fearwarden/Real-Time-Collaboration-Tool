@@ -81,6 +81,10 @@ export default class CoordinateUtils {
     // Project the point (px, py) onto the line segment, determining where it falls between (x1, y1) and (x2, y2)
     // The variable 't' represents the relative position of the projection on the segment
     let t = ((px - x1) * (x2 - x1) + (py - y1) * (y2 - y1)) / l2;
+
+    // Ensure t is clamped between 0 and 1
+    // If t=0, it means the projection falls on (x1, y1)
+    // If t=1, it means the projection falls on (x2, y2)
     t = Math.max(0, Math.min(1, t));
 
     // Compute the coordinates of the projection of (px, py) onto the segment
