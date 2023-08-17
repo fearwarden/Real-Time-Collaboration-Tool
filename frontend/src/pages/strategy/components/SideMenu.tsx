@@ -35,8 +35,10 @@ function SideMenu() {
 
 	let hideTimeout: ReturnType<typeof setTimeout>;
 
-	const onChangeMethod = (color: any) => {
+	const onColorChange = (color: any) => {
 		setColor({ ...color.rgb });
+		const rgb = color.rgb;
+		Main.getInstance().drawingStateManager.penState.color = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${rgb.a})`;
 	};
 
 	function handleMouseOver(spells: AbstractSpell[]) {
@@ -114,14 +116,14 @@ function SideMenu() {
 						className="cursor-pointer"
 						onClick={
 							() => {
-								setShowColorPicker(true);
+								setShowColorPicker(!showColorPicker);
 							}
 						}
 						src={Palette}
 					></img>
 				</div>
 				<div className="absolute">
-					{showColorPicker && <SketchPicker color={color} onChange={onChangeMethod}></SketchPicker>}
+					{showColorPicker && <SketchPicker color={color} onChange={onColorChange}></SketchPicker>}
 				</div>
 			</div>
 		</>
