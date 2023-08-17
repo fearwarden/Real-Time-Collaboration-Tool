@@ -22,8 +22,8 @@ export default class CursorHanlder {
 
   private getCursor(): string {
     const drawingState = Main.getInstance().drawingStateManager.currentState;
-    if (drawingState instanceof PenState) return `url(${Pencil}),auto`;
-    if (drawingState instanceof EraserState) return `url(${Eraser}),auto`;
+    if (drawingState instanceof PenState) return `url(${Pencil}) 0 40,auto`;
+    if (drawingState instanceof EraserState) return `url(${Eraser}) 0 46,auto`;
     return "auto";
   }
 }
