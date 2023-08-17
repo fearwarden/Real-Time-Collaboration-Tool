@@ -35,6 +35,7 @@ export default class CanvasPanningAction extends AbstractMouseAction {
     this.isPanning = false;
   }
   onMouseDown(e: MouseEvent): void {
+    if (Main.getInstance().drawingStateManager.currentState) return;
     const canvas = Main.getInstance().canvas!;
     const mousePosition = CoordinateUtils.getCanvasMousePosition(e);
     this.panningStart = {

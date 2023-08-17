@@ -4,6 +4,8 @@ import SpellModal from "./SpellModal";
 import AbstractSpell from "../../../app/content/spells/AbstractSpell";
 import Pencil from "../../../assets/img/elements/pencil.svg";
 import Eraser from "../../../assets/img/elements/eraser.svg";
+import Palette from "../../../assets/img/elements/palette.svg";
+import { Color, SketchPicker } from "react-color";
 
 function SideMenu() {
   const [agents, setAgents] = useState(
@@ -13,6 +15,13 @@ function SideMenu() {
   const [currentSpell, setCurrentSpell] = useState<AbstractSpell[] | null>(
     null
   );
+  const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
+  const [color, setColor] = useState<Color>({
+    r: 241,
+    g: 112,
+    b: 19,
+    a: 1,
+  });
   const undoButtonRef = useRef(null);
   const redoButtonRef = useRef(null);
 
@@ -26,6 +35,10 @@ function SideMenu() {
   }, []);
 
   let hideTimeout: ReturnType<typeof setTimeout>;
+
+  const onChangeMethod = (color: any) => {
+    setColor({ ...color.rgb });
+  };
 
   function handleMouseOver(spells: AbstractSpell[]) {
     if (hideTimeout) clearTimeout(hideTimeout);
@@ -90,7 +103,7 @@ function SideMenu() {
             disabled
           </button>
         </div>
-        <div>
+        <div className="flex">
           <img
             className="cursor-pointer"
             onClick={
@@ -105,6 +118,21 @@ function SideMenu() {
             }
             src={Eraser}
           ></img>
+          <img
+            className="cursor-pointer"
+            onClick={() => {
+              setShowColorPicker(true);
+            }}
+            src={Palette}
+          ></img>
+        </div>
+        <div className="absolute">
+          {showColorPicker && (
+            <SketchPicker
+              color={color}
+              onChange={onChangeMethod}
+            ></SketchPicker>
+          )}
         </div>
       </div>
     </>
