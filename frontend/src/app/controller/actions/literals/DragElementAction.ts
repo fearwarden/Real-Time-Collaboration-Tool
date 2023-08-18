@@ -27,10 +27,10 @@ export default class DragElementAction extends AbstractMouseAction {
 		);
 		canvas.activeElement.elementNode.handleMouseMove(worldCoorindates.x, worldCoorindates.y);
 	}
-	onMouseEnter(e: MouseEvent): void {
+	onMouseEnter(): void {
 		throw new Error("Method not implemented.");
 	}
-	onMouseLeave(e: MouseEvent): void {
+	onMouseLeave(): void {
 		throw new Error("Method not implemented.");
 	}
 	onMouseDown(e: MouseEvent): void {
@@ -60,7 +60,7 @@ export default class DragElementAction extends AbstractMouseAction {
 		)[0];
 		canvas.elementList.unshift(elementMoving);
 	}
-	onMouseUp(e: MouseEvent): void {
+	onMouseUp(): void {
 		const canvas = Main.getInstance().canvas!;
 		if (!(canvas.activeElement?.elementNode instanceof MovableElementNode)) return;
 
@@ -76,7 +76,7 @@ export default class DragElementAction extends AbstractMouseAction {
 		);
 		Main.getInstance().commandManager.addCommand(command);
 	}
-	onWheel(e: WheelEvent): void {
+	onWheel(): void {
 		throw new Error("Method not implemented.");
 	}
 }

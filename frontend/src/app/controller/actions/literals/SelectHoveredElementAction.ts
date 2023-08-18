@@ -18,7 +18,7 @@ export default class SelectHoveredElementAction extends AbstractMouseAction {
 			(e.clientX - e.target.offsetLeft - canvas.cameraOffset.x) / canvas.cameraZoom;
 		const y: number =
 			(e.clientY - e.target.offsetTop - canvas.cameraOffset.y) / canvas.cameraZoom;
-		for (let element of canvas.elementList) {
+		for (const element of canvas.elementList) {
 			const elementGeometry = element.getGeometry();
 			if (CoordinateUtils.checkCoordinatesInElement({ x, y }, elementGeometry)) {
 				canvas.activeElement = element;
@@ -29,19 +29,19 @@ export default class SelectHoveredElementAction extends AbstractMouseAction {
 		canvas.activeElement = null;
 		canvas.cursorHandler.setDefaultCursor();
 	}
-	onMouseEnter(e: MouseEvent): void {
+	onMouseEnter(): void {
 		throw new Error("Method not implemented.");
 	}
-	onMouseLeave(e: MouseEvent): void {
+	onMouseLeave(): void {
 		throw new Error("Method not implemented.");
 	}
-	onMouseDown(e: MouseEvent): void {
+	onMouseDown(): void {
 		this.isMouseDown = true;
 	}
-	onMouseUp(e: MouseEvent): void {
+	onMouseUp(): void {
 		this.isMouseDown = false;
 	}
-	onWheel(e: WheelEvent): void {
+	onWheel(): void {
 		throw new Error("Method not implemented.");
 	}
 }

@@ -1,4 +1,4 @@
-import { CompatClient, Stomp } from "@stomp/stompjs";
+import { CompatClient, IMessage, Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import AbstractSubscription from "./subscriptions/ISubscription";
 import Main from "../Main";
@@ -9,7 +9,7 @@ export default class StompClient {
 	private stompInitialized: boolean = false;
 
 	public connect(): void {
-		var socket = new SockJS("http://localhost:8080/ws");
+		const socket = new SockJS("http://localhost:8080/ws");
 		this.stompClient = Stomp.over(socket);
 		if (this._stompClient == null) {
 			throw new Error("Stomp client not initialized.");
@@ -19,7 +19,7 @@ export default class StompClient {
 		const subscriptions: AbstractSubscription[] =
 			Main.getInstance().subscriptionManager.getSubscriptions();
 
-		const subMap = new Map<string, Function[]>();
+		const subMap = new Map<string, ((message: unknown) => void)[]>();
 
 		for (let i = 0; i < subscriptions.length; i++) {
 			const sub = subscriptions[i];
@@ -30,10 +30,10 @@ export default class StompClient {
 				subMap.set(sub.topic, [sub.callback]);
 			}
 		}
-		this.stompClient.connect({}, (frame: any) => {
-			for (let key of subMap.keys()) {
-				this.stompClient!.subscribe(key, (message: any) => {
-					for (let callback of subMap.get(key)!) {
+		this.stompClient.connect({}, () => {
+			for (const key of subMap.keys()) {
+				this.stompClient!.subscribe(key, (message: IMessage) => {
+					for (const callback of subMap.get(key)!) {
 						callback(message);
 					}
 				});
@@ -47,7 +47,7 @@ export default class StompClient {
 		this.stompClient.disconnect();
 	}
 
-	public send(endpoint: string, message: any): void {
+	public send(endpoint: string, message: unknown): void {
 		if (!this.stompInitialized || this.stompClient == null) return;
 		this.stompClient.send(endpoint, {}, JSON.stringify(message));
 	}

@@ -12,7 +12,7 @@ export default class EraserState extends AbstractDrawingState {
 		this._isOnLine = false;
 	}
 
-	public onMouseDown(event: MouseEvent): void {
+	public onMouseDown(): void {
 		this._isErasing = true;
 	}
 	public onMouseMove(event: MouseEvent): void {

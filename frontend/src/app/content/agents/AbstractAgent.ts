@@ -1,4 +1,3 @@
-import Main from "../../Main";
 import AbstractSpell from "../spells/AbstractSpell";
 import SpellFactory from "../spells/SpellFactory";
 
