@@ -12,6 +12,7 @@ export default class SelectHoveredElementAction extends AbstractMouseAction {
 
     onMouseMove(e: MouseEvent): void {
         if (this.isMouseDown) return;
+        if (Main.getInstance().drawingStateManager.currentState) return;
         const canvas = Main.getInstance().canvas!;
         if (!(e.target instanceof HTMLCanvasElement)) return;
         const x: number = (e.clientX - e.target.offsetLeft - canvas.cameraOffset.x) / canvas.cameraZoom;
