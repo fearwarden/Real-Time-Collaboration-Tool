@@ -8,7 +8,7 @@ export default abstract class AbstractSpell {
     agentName: string,
     name: string,
     image: string,
-    spellType: string
+    spellType: string,
   ) {
     this._agentName = agentName;
     this._name = name;

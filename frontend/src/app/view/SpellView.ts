@@ -19,7 +19,7 @@ export default class SpellView implements ElementView {
     const worldCoords = CoordinateUtils.screenToWorld(
       screenCoords,
       Main.getInstance().canvas!.cameraOffset,
-      Main.getInstance().canvas!.cameraZoom
+      Main.getInstance().canvas!.cameraZoom,
     );
 
     this._spellNode = new SpellNode(
@@ -27,7 +27,7 @@ export default class SpellView implements ElementView {
       worldCoords.x,
       worldCoords.y,
       20,
-      20
+      20,
     );
     this.spellImage = new Image();
     this.spellImageLoaded = false;
@@ -40,7 +40,7 @@ export default class SpellView implements ElementView {
     Main.getInstance().canvas?.drawImage(
       this.spellImage,
       this.spellNode.x,
-      this.spellNode.y
+      this.spellNode.y,
     );
   }
   get elementNode(): ElementNode {

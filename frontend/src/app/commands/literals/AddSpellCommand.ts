@@ -20,7 +20,7 @@ export default class AddSpellCommand implements ICommand {
     ].elementNode.removeSubscriber(Main.getInstance().canvas!);
     Main.getInstance().canvas?.elementList.splice(
       Main.getInstance().canvas!.elementList.indexOf(this.spell),
-      1
+      1,
     );
     Main.getInstance().canvas?.redrawCanvas();
   }

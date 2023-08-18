@@ -11,7 +11,7 @@ export default class AddSpellAction implements IAction {
       if (!spellName || !agentName) return;
       const spellView = new SpellView(agentName, spellName);
       Main.getInstance().commandManager.addCommand(
-        new AddSpellCommand(spellView)
+        new AddSpellCommand(spellView),
       );
     }
   }

@@ -26,25 +26,30 @@ export default class PenState extends AbstractDrawingState {
     const worldCoords = CoordinateUtils.screenToWorld(
       { x: mouseX, y: mouseY },
       Main.getInstance().canvas.cameraOffset,
-      Main.getInstance().canvas.cameraZoom
+      Main.getInstance().canvas.cameraZoom,
     );
     if (
       Main.getInstance().strategyModel.drawingPoints.indexOf(this.temp) !== -1
     ) {
       Main.getInstance().strategyModel.drawingPoints.splice(
         Main.getInstance().strategyModel.drawingPoints.indexOf(this.temp),
-        1
+        1,
       );
     }
     this.temp.push(
-      new DrawingPoint(worldCoords.x, worldCoords.y, this.thickness, this.color)
+      new DrawingPoint(
+        worldCoords.x,
+        worldCoords.y,
+        this.thickness,
+        this.color,
+      ),
     );
     Main.getInstance().strategyModel.drawingPoints.push(this.temp);
   }
   public onMouseUp(): void {
     this.isDrawing = false;
     Main.getInstance().commandManager.addCommand(
-      new DrawLineCommand(this.temp)
+      new DrawLineCommand(this.temp),
     );
   }
 }

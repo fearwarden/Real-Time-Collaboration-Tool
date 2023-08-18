@@ -24,20 +24,20 @@ export default class EraserState extends AbstractDrawingState {
     const screenToWorld = CoordinateUtils.screenToWorld(
       { x: mouseX, y: mouseY },
       Main.getInstance().canvas.cameraOffset,
-      Main.getInstance().canvas.cameraZoom
+      Main.getInstance().canvas.cameraZoom,
     );
 
     // Determine which line (if any) is being intersected by the eraser
     const intersectedLineIndex = this.findIntersectedLine(
       screenToWorld.x,
-      screenToWorld.y
+      screenToWorld.y,
     );
 
     // If a line is intersected, delete it
     if (intersectedLineIndex !== -1) {
       Main.getInstance().strategyModel.drawingPoints.splice(
         intersectedLineIndex,
-        1
+        1,
       );
     }
   }
@@ -76,7 +76,7 @@ export default class EraserState extends AbstractDrawingState {
             x1,
             y1,
             x2,
-            y2
+            y2,
           ) <= this.thickness
         ) {
           return lineIndex;

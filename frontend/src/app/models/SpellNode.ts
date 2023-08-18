@@ -9,7 +9,7 @@ export default class SpellNode extends MovableElementNode {
     x: number,
     y: number,
     width: number,
-    height: number
+    height: number,
   ) {
     super(x, y, width, height);
     this._spellContent = spell;

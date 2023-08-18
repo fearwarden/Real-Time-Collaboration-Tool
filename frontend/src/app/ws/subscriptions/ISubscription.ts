@@ -1,5 +1,5 @@
 export default interface ISubscription {
-    /*private _topic: string;
+  /*private _topic: string;
 
     private _callback: (message: any) => void;
 
@@ -24,7 +24,6 @@ export default interface ISubscription {
         this._topic = value;
     }*/
 
-    get topic(): string;
-    callback(message: any): void;
-
+  get topic(): string;
+  callback(message: any): void;
 }

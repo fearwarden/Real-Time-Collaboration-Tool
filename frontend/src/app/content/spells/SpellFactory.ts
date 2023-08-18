@@ -108,7 +108,7 @@ export default class SpellFactory {
 
     if (!spellofAgent) {
       throw new Error(
-        `No spell found with name: ${spellName} for agent: ${agentName}`
+        `No spell found with name: ${spellName} for agent: ${agentName}`,
       );
     }
 

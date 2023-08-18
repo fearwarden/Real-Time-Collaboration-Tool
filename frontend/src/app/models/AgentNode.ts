@@ -9,7 +9,7 @@ export default class AgentNode extends MovableElementNode {
     x: number,
     y: number,
     width: number,
-    height: number
+    height: number,
   ) {
     super(x, y, height, width);
     this._agentContent = agent;

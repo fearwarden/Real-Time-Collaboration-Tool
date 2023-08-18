@@ -12,7 +12,7 @@ export interface Point {
 export default class CoordinateUtils {
   public static checkCoordinatesInElement(
     point: Point,
-    elementGeometry: Geometry
+    elementGeometry: Geometry,
   ): boolean {
     return (
       point.x > elementGeometry.x &&
@@ -25,7 +25,7 @@ export default class CoordinateUtils {
   public static screenToWorld(
     point: Point,
     offset: CameraOffset,
-    zoom: number
+    zoom: number,
   ): Point {
     return {
       x: (point.x - offset.x) / zoom,
@@ -36,7 +36,7 @@ export default class CoordinateUtils {
   public static worldToScreen(
     point: Point,
     offset: CameraOffset,
-    zoom: number
+    zoom: number,
   ): Point {
     return {
       x: (point.x + offset.x) * zoom,
@@ -68,7 +68,7 @@ export default class CoordinateUtils {
     x1: number,
     y1: number,
     x2: number,
-    y2: number
+    y2: number,
   ): number {
     // Calculate the squared length of the line segment
     const l2 = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);

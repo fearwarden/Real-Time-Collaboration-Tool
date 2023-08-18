@@ -12,14 +12,14 @@ export default class DrawLineCommand implements ICommand {
   doCommand(): void {
     if (
       Main.getInstance().strategyModel.drawingPoints.indexOf(
-        this._drawingPoints
+        this._drawingPoints,
       ) > -1
     ) {
       Main.getInstance().strategyModel.drawingPoints.splice(
         Main.getInstance().strategyModel.drawingPoints.indexOf(
-          this._drawingPoints
+          this._drawingPoints,
         ),
-        1
+        1,
       );
     }
     Main.getInstance().strategyModel.drawingPoints.push(this._drawingPoints);
@@ -27,14 +27,14 @@ export default class DrawLineCommand implements ICommand {
   undoCommand(): void {
     if (
       Main.getInstance().strategyModel.drawingPoints.indexOf(
-        this._drawingPoints
+        this._drawingPoints,
       ) > -1
     ) {
       Main.getInstance().strategyModel.drawingPoints.splice(
         Main.getInstance().strategyModel.drawingPoints.indexOf(
-          this._drawingPoints
+          this._drawingPoints,
         ),
-        1
+        1,
       );
     }
   }

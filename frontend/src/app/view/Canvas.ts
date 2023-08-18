@@ -65,7 +65,7 @@ export default class Canvas implements ISubscriber {
     x: number,
     y: number,
     width: number = -1,
-    height: number = -1
+    height: number = -1,
   ): void {
     if (width > 0 && height > 0) {
       this._ctx.drawImage(image, x, y, width, height);
@@ -164,5 +164,5 @@ export default class Canvas implements ISubscriber {
     return this._cursorHandler;
   }
 
-  update(notification: any): void { }
+  update(notification: any): void {}
 }

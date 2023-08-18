@@ -11,22 +11,25 @@ export default class AgentView implements ElementView {
   private agentImage: HTMLImageElement;
 
   constructor(agentName: string) {
-
     //Spawn agent in the center of the screen
 
     const screenCoords: Point = {
       x: Main.getInstance().canvas!.width / 2,
-      y: Main.getInstance().canvas!.height / 2
-    }
+      y: Main.getInstance().canvas!.height / 2,
+    };
 
-    const worldCoords = CoordinateUtils.screenToWorld(screenCoords, Main.getInstance().canvas!.cameraOffset, Main.getInstance().canvas!.cameraZoom);
+    const worldCoords = CoordinateUtils.screenToWorld(
+      screenCoords,
+      Main.getInstance().canvas!.cameraOffset,
+      Main.getInstance().canvas!.cameraZoom,
+    );
 
     this._agentNode = new AgentNode(
       AgentFactory.createAgent(agentName),
       worldCoords.x,
       worldCoords.y,
       20,
-      20
+      20,
     );
     this.agentImage = new Image();
     this.agentImageLoaded = false;
@@ -63,7 +66,7 @@ export default class AgentView implements ElementView {
       this.agentNode.width = this.agentImage.width;
       this.agentNode.height = this.agentImage.height;
       Main.getInstance().canvas?.redrawCanvas();
-    }
+    };
   }
 
   public get agentNode(): AgentNode {

@@ -35,7 +35,11 @@ export default class CommandManager {
   }
 
   public undoCommand() {
-    if (this.currentCommand < 0 || this.currentCommand > this.commands.length - 1) return;
+    if (
+      this.currentCommand < 0 ||
+      this.currentCommand > this.commands.length - 1
+    )
+      return;
     this.commands[this.currentCommand].undoCommand();
     this.currentCommand--;
 
