@@ -22,6 +22,7 @@ function SideMenu() {
 		b: 19,
 		a: 1,
 	});
+	const [penThinckness, setPenThickness] = useState<number>(3);
 	const undoButtonRef = useRef(null);
 	const redoButtonRef = useRef(null);
 
@@ -57,6 +58,12 @@ function SideMenu() {
 		hideTimeout = setTimeout(() => {
 			setShowModal(false);
 		}, 100);
+	}
+
+	function handleThicknessChange(e: React.ChangeEvent<HTMLInputElement>): void {
+		const newThickness = parseInt(e.target.value);
+		setPenThickness(newThickness);
+		Main.getInstance().drawingStateManager.penState.thickness = newThickness;
 	}
 
 	return (
@@ -127,6 +134,12 @@ function SideMenu() {
 						}}
 						src={Palette}
 					></img>
+					<div>
+						<p className="text-center">Thickness</p>
+						<span className="mr-1">1</span>
+						<input type="range" min="1" max="10" step="1" value={penThinckness} onChange={handleThicknessChange}></input>
+						<span className="ml-1">10</span>
+					</div>
 				</div>
 				<div className="absolute">
 					{showColorPicker && (
@@ -147,6 +160,7 @@ function SideMenu() {
 						</>
 					)}
 				</div>
+
 			</div>
 		</>
 	);
