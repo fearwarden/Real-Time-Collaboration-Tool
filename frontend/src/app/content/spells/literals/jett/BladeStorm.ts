@@ -2,7 +2,7 @@ import BladeStormImage from "../../../../../assets/img/agents/jett/Blade_Storm.w
 import AbstractSpell from "../../AbstractSpell";
 
 export default class BladeStorm extends AbstractSpell {
-  constructor() {
-    super("Jett", "Blade Storm", BladeStormImage, "ultimate");
-  }
+	constructor() {
+		super("Jett", "Blade Storm", BladeStormImage, "ultimate");
+	}
 }

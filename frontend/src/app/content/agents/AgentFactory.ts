@@ -11,33 +11,33 @@ import Sova from "./literals/Sova";
 import Viper from "./literals/Viper";
 
 export default class AgentFactory {
-  public static createAgent(agentName: string) {
-    switch (agentName) {
-      case "Brimstone":
-        return new Brimstone();
-      case "Cypher":
-        return new Cypher();
-      case "Jett":
-        return new Jett();
-      case "Killjoy":
-        return new Killjoy();
-      case "Omen":
-        return new Omen();
-      case "Phoenix":
-        return new Phoenix();
-      case "Sage":
-        return new Sage();
-      case "Sova":
-        return new Sova();
-      case "Viper":
-        return new Viper();
-      case "Reyna":
-        return new Reyna();
-      case "Raze":
-        return new Raze();
+	public static createAgent(agentName: string) {
+		switch (agentName) {
+			case "Brimstone":
+				return new Brimstone();
+			case "Cypher":
+				return new Cypher();
+			case "Jett":
+				return new Jett();
+			case "Killjoy":
+				return new Killjoy();
+			case "Omen":
+				return new Omen();
+			case "Phoenix":
+				return new Phoenix();
+			case "Sage":
+				return new Sage();
+			case "Sova":
+				return new Sova();
+			case "Viper":
+				return new Viper();
+			case "Reyna":
+				return new Reyna();
+			case "Raze":
+				return new Raze();
 
-      default:
-        throw new Error("Agent does not exist.");
-    }
-  }
+			default:
+				throw new Error("Agent does not exist.");
+		}
+	}
 }

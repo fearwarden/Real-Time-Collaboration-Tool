@@ -45,73 +45,41 @@ import ToxicScreen from "./literals/viper/TxociScreen";
 import VipersPit from "./literals/viper/VipersPit";
 
 export default class SpellFactory {
-  private static spellMap: Record<string, AbstractSpell[]> = {
-    Phoenix: [new Blaze(), new CurveBall(), new HotHands(), new RunItBack()],
-    Jett: [
-      new CloudBurst(),
-      new UpDraft(),
-      new TailwindSpell(),
-      new BladeStorm(),
-    ],
-    Brimstone: [
-      new StimBeacon(),
-      new Incendiary(),
-      new SkySmoke(),
-      new OrbitalStrike(),
-    ],
-    Viper: [
-      new SnakeBite(),
-      new PoisonCloud(),
-      new ToxicScreen(),
-      new VipersPit(),
-    ],
-    Omen: [
-      new ShroudedStep(),
-      new Paranoia(),
-      new DarkCover(),
-      new FromTheShadow(),
-    ],
-    Killjoy: [new Nanoswarm(), new Alarmbot(), new Turret(), new Lockdown()],
-    Cypher: [new Trapwire(), new CyberCage(), new Spycam(), new NeuralTheft()],
-    Sova: [new OwlDrone(), new ShockBolt(), new ReconBolt(), new HuntersFury()],
-    Sage: [
-      new BarrierOrb(),
-      new SlowOrb(),
-      new HealingOrb(),
-      new Resurrection(),
-    ],
-    Reyna: [new Leer(), new Devour(), new Dismiss(), new Empress()],
-    Raze: [
-      new BoomBot(),
-      new BlastPack(),
-      new PaintShells(),
-      new Showstopper(),
-    ],
-  };
+	private static spellMap: Record<string, AbstractSpell[]> = {
+		Phoenix: [new Blaze(), new CurveBall(), new HotHands(), new RunItBack()],
+		Jett: [new CloudBurst(), new UpDraft(), new TailwindSpell(), new BladeStorm()],
+		Brimstone: [new StimBeacon(), new Incendiary(), new SkySmoke(), new OrbitalStrike()],
+		Viper: [new SnakeBite(), new PoisonCloud(), new ToxicScreen(), new VipersPit()],
+		Omen: [new ShroudedStep(), new Paranoia(), new DarkCover(), new FromTheShadow()],
+		Killjoy: [new Nanoswarm(), new Alarmbot(), new Turret(), new Lockdown()],
+		Cypher: [new Trapwire(), new CyberCage(), new Spycam(), new NeuralTheft()],
+		Sova: [new OwlDrone(), new ShockBolt(), new ReconBolt(), new HuntersFury()],
+		Sage: [new BarrierOrb(), new SlowOrb(), new HealingOrb(), new Resurrection()],
+		Reyna: [new Leer(), new Devour(), new Dismiss(), new Empress()],
+		Raze: [new BoomBot(), new BlastPack(), new PaintShells(), new Showstopper()],
+	};
 
-  static getSpellsForAgent(agentName: string): AbstractSpell[] {
-    if (!SpellFactory.spellMap[agentName]) {
-      throw new Error(`No spells found for agent: ${agentName}`);
-    }
+	static getSpellsForAgent(agentName: string): AbstractSpell[] {
+		if (!SpellFactory.spellMap[agentName]) {
+			throw new Error(`No spells found for agent: ${agentName}`);
+		}
 
-    return SpellFactory.spellMap[agentName];
-  }
+		return SpellFactory.spellMap[agentName];
+	}
 
-  static getSpell(agentName: string, spellName: string): AbstractSpell {
-    const spellList = SpellFactory.spellMap[agentName];
+	static getSpell(agentName: string, spellName: string): AbstractSpell {
+		const spellList = SpellFactory.spellMap[agentName];
 
-    if (!spellList) {
-      throw new Error(`No spells found for agent: ${agentName}`);
-    }
+		if (!spellList) {
+			throw new Error(`No spells found for agent: ${agentName}`);
+		}
 
-    const spellofAgent = spellList.find((spell) => spell.name === spellName);
+		const spellofAgent = spellList.find((spell) => spell.name === spellName);
 
-    if (!spellofAgent) {
-      throw new Error(
-        `No spell found with name: ${spellName} for agent: ${agentName}`,
-      );
-    }
+		if (!spellofAgent) {
+			throw new Error(`No spell found with name: ${spellName} for agent: ${agentName}`);
+		}
 
-    return spellofAgent;
-  }
+		return spellofAgent;
+	}
 }

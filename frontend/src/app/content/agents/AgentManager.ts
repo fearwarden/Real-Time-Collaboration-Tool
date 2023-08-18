@@ -12,45 +12,45 @@ import Sova from "./literals/Sova";
 import Viper from "./literals/Viper";
 
 export default class AgentManager {
-  private brimstone: Brimstone;
-  private cypher: Cypher;
-  private jett: Jett;
-  private killjoy: Killjoy;
-  private omen: Omen;
-  private phoenix: Phoenix;
-  private raze: Raze;
-  private reyna: Reyna;
-  private sage: Sage;
-  private sova: Sova;
-  private viper: Viper;
+	private brimstone: Brimstone;
+	private cypher: Cypher;
+	private jett: Jett;
+	private killjoy: Killjoy;
+	private omen: Omen;
+	private phoenix: Phoenix;
+	private raze: Raze;
+	private reyna: Reyna;
+	private sage: Sage;
+	private sova: Sova;
+	private viper: Viper;
 
-  constructor() {
-    this.brimstone = new Brimstone();
-    this.cypher = new Cypher();
-    this.jett = new Jett();
-    this.killjoy = new Killjoy();
-    this.omen = new Omen();
-    this.phoenix = new Phoenix();
-    this.raze = new Raze();
-    this.reyna = new Reyna();
-    this.sage = new Sage();
-    this.sova = new Sova();
-    this.viper = new Viper();
-  }
+	constructor() {
+		this.brimstone = new Brimstone();
+		this.cypher = new Cypher();
+		this.jett = new Jett();
+		this.killjoy = new Killjoy();
+		this.omen = new Omen();
+		this.phoenix = new Phoenix();
+		this.raze = new Raze();
+		this.reyna = new Reyna();
+		this.sage = new Sage();
+		this.sova = new Sova();
+		this.viper = new Viper();
+	}
 
-  public getAgents() {
-    return [
-      this.brimstone,
-      this.cypher,
-      this.jett,
-      this.killjoy,
-      this.omen,
-      this.phoenix,
-      this.raze,
-      this.reyna,
-      this.sage,
-      this.sova,
-      this.viper,
-    ];
-  }
+	public getAgents() {
+		return [
+			this.brimstone,
+			this.cypher,
+			this.jett,
+			this.killjoy,
+			this.omen,
+			this.phoenix,
+			this.raze,
+			this.reyna,
+			this.sage,
+			this.sova,
+			this.viper,
+		];
+	}
 }
