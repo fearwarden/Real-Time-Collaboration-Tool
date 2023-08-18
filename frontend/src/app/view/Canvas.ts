@@ -1,12 +1,10 @@
-import Main from "../Main";
 import { Point } from "../utils/CoordinateUtils";
-import ISubscriber from "../utils/observer/ISubscriber";
 import DrawingView from "./DrawingView";
 import ElementView from "./ElementView";
 import MapView from "./MapView";
 import CursorHanlder from "../utils/cursor/CursorHandler";
 
-export default class Canvas implements ISubscriber {
+export default class Canvas {
 	private _canvasElement: HTMLCanvasElement;
 
 	private _width: number;
@@ -163,6 +161,4 @@ export default class Canvas implements ISubscriber {
 	public get cursorHandler(): CursorHanlder {
 		return this._cursorHandler;
 	}
-
-	update(notification: any): void {}
 }

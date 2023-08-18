@@ -1,5 +1,4 @@
 import Main from "../Main";
-import SideMenuView from "../view/SideMenuView";
 import ICommand from "./ICommand";
 
 export default class CommandManager {

@@ -15,19 +15,19 @@ export default class MousePositionTrackerAction extends AbstractMouseAction {
 			y: (e.clientY - e.target!.offsetTop) / canvas.height,
 		});
 	}
-	onMouseEnter(e: MouseEvent): void {
+	onMouseEnter(): void {
 		throw new Error("Method not implemented.");
 	}
-	onMouseLeave(e: MouseEvent): void {
+	onMouseLeave(): void {
 		throw new Error("Method not implemented.");
 	}
-	onMouseDown(e: MouseEvent): void {
+	onMouseDown(): void {
 		throw new Error("Method not implemented.");
 	}
-	onMouseUp(e: MouseEvent): void {
+	onMouseUp(): void {
 		throw new Error("Method not implemented.");
 	}
-	onWheel(e: WheelEvent): void {
+	onWheel(): void {
 		throw new Error("Method not implemented.");
 	}
 }

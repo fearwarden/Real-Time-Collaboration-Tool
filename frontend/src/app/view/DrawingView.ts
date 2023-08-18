@@ -31,7 +31,7 @@ export default class DrawingView {
 		let coords: Point | null = null;
 
 		this.points.forEach((pointList) => {
-			pointList.forEach((point, index) => {
+			pointList.forEach((point) => {
 				ctx.strokeStyle = point.color;
 				ctx.lineWidth = point.thickness;
 				ctx.lineCap = "round";

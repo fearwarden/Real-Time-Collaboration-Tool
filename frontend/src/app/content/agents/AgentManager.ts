@@ -1,4 +1,3 @@
-import AbstractAgent from "./AbstractAgent";
 import Brimstone from "./literals/Brimstone";
 import Cypher from "./literals/Cypher";
 import Jett from "./literals/Jett";

@@ -27,9 +27,9 @@ export default abstract class ElementNode implements IPublisher {
 		this.subscribers = [];
 	}
 
-	notifySubscribers(notification: any): void {
+	notifySubscribers(notification: unknown): void {
 		if (!notification) return;
-		for (let subscriber of this.subscribers) {
+		for (const subscriber of this.subscribers) {
 			subscriber.update(notification);
 		}
 	}

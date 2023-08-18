@@ -11,10 +11,10 @@ export default class DrawAction extends AbstractMouseAction {
 		if (!drawingState) return;
 		drawingState.onMouseMove(e);
 	}
-	onMouseEnter(e: MouseEvent): void {
+	onMouseEnter(): void {
 		throw new Error("Method not implemented.");
 	}
-	onMouseLeave(e: MouseEvent): void {
+	onMouseLeave(): void {
 		throw new Error("Method not implemented.");
 	}
 	onMouseDown(e: MouseEvent): void {
@@ -22,12 +22,12 @@ export default class DrawAction extends AbstractMouseAction {
 		if (!drawingState) return;
 		drawingState.onMouseDown(e);
 	}
-	onMouseUp(e: MouseEvent): void {
+	onMouseUp(): void {
 		const drawingState = Main.getInstance().drawingStateManager.currentState;
 		if (!drawingState) return;
 		drawingState.onMouseUp();
 	}
-	onWheel(e: WheelEvent): void {
+	onWheel(): void {
 		throw new Error("Method not implemented.");
 	}
 }

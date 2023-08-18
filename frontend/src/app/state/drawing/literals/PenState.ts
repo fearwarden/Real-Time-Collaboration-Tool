@@ -14,7 +14,7 @@ export default class PenState extends AbstractDrawingState {
 		this.temp = [];
 	}
 
-	public onMouseDown(event: MouseEvent): void {
+	public onMouseDown(): void {
 		this.isDrawing = true;
 		this.temp = [];
 	}

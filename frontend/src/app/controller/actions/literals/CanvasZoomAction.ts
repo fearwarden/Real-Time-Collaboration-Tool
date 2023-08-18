@@ -6,19 +6,19 @@ export default class CanvasZoomAction extends AbstractMouseAction {
 	constructor() {
 		super(HTMLCanvasElement);
 	}
-	onMouseMove(e: MouseEvent): void {
+	onMouseMove(): void {
 		throw new Error("Method not implemented.");
 	}
-	onMouseEnter(e: MouseEvent): void {
+	onMouseEnter(): void {
 		throw new Error("Method not implemented.");
 	}
-	onMouseLeave(e: MouseEvent): void {
+	onMouseLeave(): void {
 		throw new Error("Method not implemented.");
 	}
-	onMouseDown(e: MouseEvent): void {
+	onMouseDown(): void {
 		throw new Error("Method not implemented.");
 	}
-	onMouseUp(e: MouseEvent): void {
+	onMouseUp(): void {
 		throw new Error("Method not implemented.");
 	}
 	onWheel(e: WheelEvent): void {

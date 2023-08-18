@@ -1,3 +1,4 @@
+import { IMessage } from "@stomp/stompjs";
 import Main from "../../../Main";
 import ISubscription from "../ISubscription";
 
@@ -13,7 +14,7 @@ export default class MousePositionSubscription implements ISubscription {
 	get topic(): string {
 		return "/topic/strategies/mouse-position";
 	}
-	callback(message: any): void {
+	callback(message: IMessage): void {
 		const data: MousePosition = JSON.parse(message.body);
 		if (data.userId === Main.getInstance().userId) return;
 		// Keep the dot within the canvas boundaries

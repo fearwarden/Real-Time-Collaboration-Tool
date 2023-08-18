@@ -5,10 +5,10 @@ import AbstractSpell from "../../../app/content/spells/AbstractSpell";
 import Pencil from "../../../assets/img/elements/pencil.svg";
 import Eraser from "../../../assets/img/elements/eraser.svg";
 import Palette from "../../../assets/img/elements/palette.svg";
-import { Color, SketchPicker } from "react-color";
+import { Color, SketchPicker, ColorResult } from "react-color";
 
 function SideMenu() {
-	const [agents, setAgents] = useState(Main.getInstance().agentManager.getAgents());
+	const [agents] = useState(Main.getInstance().agentManager.getAgents());
 	const [showModal, setShowModal] = useState(false);
 	const [currentSpell, setCurrentSpell] = useState<AbstractSpell[] | null>(null);
 	const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
@@ -33,7 +33,7 @@ function SideMenu() {
 
 	let hideTimeout: ReturnType<typeof setTimeout>;
 
-	const onColorChange = (color: any) => {
+	const onColorChange = (color: ColorResult) => {
 		setColor({ ...color.rgb });
 		const rgb = color.rgb;
 		Main.getInstance().drawingStateManager.penState.color = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${rgb.a})`;

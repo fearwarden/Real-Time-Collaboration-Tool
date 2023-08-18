@@ -28,10 +28,10 @@ export default class CanvasPanningAction extends AbstractMouseAction {
 			y: Math.max(canvas.cameraOffset.y, -canvas.height * 1.5),
 		};
 	}
-	onMouseEnter(e: MouseEvent): void {
+	onMouseEnter(): void {
 		throw new Error("Method not implemented.");
 	}
-	onMouseLeave(e: MouseEvent): void {
+	onMouseLeave(): void {
 		this.isPanning = false;
 	}
 	onMouseDown(e: MouseEvent): void {
@@ -45,12 +45,12 @@ export default class CanvasPanningAction extends AbstractMouseAction {
 		this.isPanning = true;
 		canvas.cursorHandler.setCustomPredefinedCursor("grab");
 	}
-	onMouseUp(e: MouseEvent): void {
+	onMouseUp(): void {
 		const canvas = Main.getInstance().canvas!;
 		this.isPanning = false;
 		canvas.cursorHandler.setDefaultCursor();
 	}
-	onWheel(e: WheelEvent): void {
+	onWheel(): void {
 		throw new Error("Method not implemented.");
 	}
 }
