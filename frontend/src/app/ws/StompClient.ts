@@ -19,7 +19,7 @@ export default class StompClient {
 		const subscriptions: AbstractSubscription[] =
 			Main.getInstance().subscriptionManager.getSubscriptions();
 
-		const subMap = new Map<string, ((message: unknown) => void)[]>();
+		const subMap = new Map<string, ((message: IMessage) => void)[]>();
 
 		for (let i = 0; i < subscriptions.length; i++) {
 			const sub = subscriptions[i];
