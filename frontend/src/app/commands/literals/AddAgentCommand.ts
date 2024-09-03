@@ -10,7 +10,7 @@ export default class AddAgentCommand implements ICommand {
 	}
 
 	doCommand(): void {
-		this.agent.agentNode.addSubscriber(Main.getInstance().canvas!);
+		//this.agent.agentNode.addSubscriber(Main.getInstance().canvas!);
 		Main.getInstance().canvas?.elementList.unshift(this.agent); // Dodaje na pocetak liste
 		Main.getInstance().canvas?.redrawCanvas();
 	}
@@ -20,7 +20,7 @@ export default class AddAgentCommand implements ICommand {
 				Main.getInstance().canvas!.elementList.indexOf(this.agent)
 			];
 		if (!element) return;
-		element.elementNode.removeSubscriber(Main.getInstance().canvas!);
+		//element.elementNode.removeSubscriber(Main.getInstance().canvas!);
 		Main.getInstance().canvas?.elementList.splice(
 			Main.getInstance().canvas!.elementList.indexOf(this.agent),
 			1,
